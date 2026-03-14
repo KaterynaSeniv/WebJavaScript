@@ -1,7 +1,6 @@
-
 (function(window) {
     var sortLib = {};
-  
+
     function cleanArray(arr) {
         let hasUndefined = false;
         let result = [];
@@ -13,7 +12,7 @@
             }
         }
         if (hasUndefined) {
-            console.warn("Попередження: У масиві знайдено undefined елементи. Їх було проігноровано.");
+            console.warn("Повідомлення: У масиві виявлено undefined-елементи. Їх проігноровано при сортуванні."); 
         }
         return result;
     }
@@ -30,7 +29,7 @@
                 }
             }
         }
-        console.log(`Бульбашка: Порівнянь: ${comparisons}, Обмінів: ${swaps}`);
+        console.log(`Бульбашка: Порівнянь: ${comparisons}, Обмінів: ${swaps}`); 
         return a;
     };
 
@@ -54,7 +53,7 @@
 
     sortLib.insertionSort = function(arr, ascending = true) {
         let a = cleanArray(arr);
-        let n = a.length, comparisons = 0, insertions = 0;
+        let n = a.length, comparisons = 0, moves = 0;
         for (let i = 1; i < n; i++) {
             let key = a[i];
             let j = i - 1;
@@ -62,14 +61,57 @@
                 comparisons++;
                 a[j + 1] = a[j];
                 j--;
-                insertions++;
+                moves++;
             }
             a[j + 1] = key;
         }
-        console.log(`Вставками: Порівнянь: ${comparisons}, Переміщень: ${insertions}`);
+        console.log(`Вставками: Порівнянь: ${comparisons}, Переміщень: ${moves}`);
         return a;
     };
 
-    window.sortLib = sortLib;
+    sortLib.shellSort = function(arr, ascending = true) {
+        let a = cleanArray(arr);
+        let n = a.length, comparisons = 0, moves = 0;
+        for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
+            for (let i = gap; i < n; i++) {
+                let temp = a[i];
+                let j = i;
+                while (j >= gap) {
+                    comparisons++;
+                    if (ascending ? a[j - gap] > temp : a[j - gap] < temp) {
+                        a[j] = a[j - gap];
+                        moves++;
+                        j -= gap;
+                    } else break;
+                }
+                a[j] = temp;
+            }
+        }
+        console.log(`Шелла: Порівнянь: ${comparisons}, Переміщень: ${moves}`);
+        return a;
+    };
+    
+    sortLib.quickSort = function(arr, ascending = true) {
+        let a = cleanArray(arr);
+        let comps = 0, swaps = 0;
+        function qSort(left, right) {
+            if (left >= right) return;
+            let pivot = a[Math.floor((left + right) / 2)];
+            let i = left, j = right;
+            while (i <= j) {
+                while (ascending ? a[i] < pivot : a[i] > pivot) { i++; comps++; }
+                while (ascending ? a[j] > pivot : a[j] < pivot) { j--; comps++; }
+                if (i <= j) {
+                    [a[i], a[j]] = [a[j], a[i]];
+                    i++; j--; swaps++;
+                }
+            }
+            qSort(left, j); qSort(i, right);
+        }
+        qSort(0, a.length - 1);
+        console.log(`Хоара: Порівнянь: ${comps}, Обмінів: ${swaps}`);
+        return a;
+    };
 
+    window.sortLib = sortLib; 
 })(window);
