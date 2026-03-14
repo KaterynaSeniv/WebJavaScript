@@ -1,14 +1,16 @@
-let normalArray = Array.from({length: 100}, () => Math.floor(Math.random() * 100));
+let normalArr = Array.from({length: 110}, () => Math.floor(Math.random() * 200));
 
-let sparseArray = [5, 12, 8];
-sparseArray[50] = 45;
-sparseArray[99] = 100; 
+let sparseArr = []; 
+sparseArr[0] = 50;
+sparseArr[50] = 2;
+sparseArr[120] = 15; 
 
-console.log("%c Тест: нерозріджений масив ", "color: blue; font-weight: bold");
-console.log("Оригінал:", normalArray);
-sortLib.bubbleSort(normalArray);
-sortLib.selectionSort(normalArray);
-sortLib.insertionSort(normalArray);
+console.log("\n%c Тест: нерозріджений масив", "font-weight: bold");
+sortLib.bubbleSort(normalArr);
+sortLib.selectionSort(normalArr);
+sortLib.insertionSort(normalArr);
+sortLib.shellSort(normalArr);
+sortLib.quickSort(normalArr);
 
-console.log("\n%c Тест: розріджений масив", "color: red; font-weight: bold");
-console.log("Сортування за спаданням:", sortLib.bubbleSort(sparseArray, false));
+console.log("\n%c Тест: розріджений масив", "font-weight: bold");
+console.log("Результат Хоара (спадання):", sortLib.quickSort(sparseArr, false));
