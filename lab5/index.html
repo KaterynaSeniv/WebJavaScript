@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Square Hunter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1> Pixel Hunter</h1>
+
+    <div id="menu" class="card">
+        <h2>Налаштування</h2>
+
+        <label>Складність</label>
+        <select id="difficulty">
+            <option value="">--Обери--</option>
+            <option value="easy">Легка</option>
+            <option value="medium">Середня</option>
+            <option value="hard">Важка</option>
+        </select>
+
+        <label>Колір квадрата</label>
+        <input type="color" id="colorPicker">
+
+        <button id="startBtn" disabled>Почати гру</button>
+    </div>
+
+    <div id="game" class="card hidden">
+        <div class="info">
+            <span>Очки: <b id="score">0</b></span>
+            <span>Час: <b id="time">0</b></span>
+        </div>
+
+        <div id="field">
+            <div id="square"></div>
+        </div>
+    </div>
+
+    <div id="endScreen" class="card hidden">
+        <h2> Гра завершена</h2>
+        <p>Твій результат: <b id="finalScore"></b></p>
+
+        <button id="restartBtn">🔁 Ще раз</button>
+        <button id="menuBtn">⬅️ В меню</button>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
