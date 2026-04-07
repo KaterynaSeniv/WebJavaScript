@@ -76,8 +76,8 @@ function setupField() {
             field.style.width = "500px";
             field.style.height = "300px";
         } else {
-            field.style.width = "90vw";
-            field.style.height = "70vh";
+            field.style.width = "min(90vw, 700px)";
+            field.style.height = "min(70vh, 500px)";
         }
     } else {
         field.style.width = "400px";
