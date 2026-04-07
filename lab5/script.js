@@ -13,14 +13,13 @@ const field = document.getElementById("field");
 const scoreEl = document.getElementById("score");
 const timeEl = document.getElementById("time");
 const final = document.getElementById("final");
-const warning = document.getElementById("warning");
 
 const again = document.getElementById("again");
 const back = document.getElementById("back");
 
 let score = 0;
-let timer;
-let timeLeft;
+let timer = null;
+let timeLeft = 0;
 
 const settings = {
     easy: 2,
@@ -33,25 +32,8 @@ const maxField = {
     height: 500
 };
 
-function isRed(color) {
-    return color.toLowerCase() === "#ff0000";
-}
-
 function check() {
-    if (!mode.value || !difficulty.value || !colorPicker.value) {
-        startBtn.disabled = true;
-        return;
-    }
-
-    if (mode.value === "challenge" && isRed(colorPicker.value)) {
-        startBtn.disabled = true;
-        warning.textContent = "У Challenge режимі не можна обирати червоний!";
-        return;
-    } else {
-        warning.textContent = "";
-    }
-
-    startBtn.disabled = false;
+    startBtn.disabled = !(mode.value && difficulty.value && colorPicker.value);
 }
 
 mode.onchange = check;
@@ -59,18 +41,25 @@ difficulty.onchange = check;
 colorPicker.oninput = check;
 
 startBtn.onclick = () => {
-    menu.classList.add("hidden");
-    end.classList.add("hidden");
-    game.classList.remove("hidden");
+    startNewGame();
+};
+
+function startNewGame() {
+    clearInterval(timer);
+    removeFakes();
 
     score = 0;
     scoreEl.textContent = score;
+
+    menu.classList.add("hidden");
+    end.classList.add("hidden");
+    game.classList.remove("hidden");
 
     square.style.background = colorPicker.value;
 
     setupField();
     startRound();
-};
+}
 
 function setupField() {
     if (mode.value === "normal") {
@@ -92,12 +81,13 @@ function setupField() {
 
 function startRound() {
     clearInterval(timer);
+    removeFakes();
 
     timeLeft = settings[difficulty.value];
     timeEl.textContent = timeLeft.toFixed(1);
 
     moveSquare();
-    spawnFakeSquares();
+    spawnFakesIfNeeded();
 
     timer = setInterval(() => {
         timeLeft -= 0.1;
@@ -117,10 +107,6 @@ function moveSquare() {
 
         field.style.width = newW + "px";
         field.style.height = newH + "px";
-
-        square.style.transition = "0.3s linear";
-    } else {
-        square.style.transition = "none";
     }
 
     const x = Math.random() * maxX;
@@ -130,34 +116,28 @@ function moveSquare() {
     square.style.top = y + "px";
 }
 
-function spawnFakeSquares() {
-    document.querySelectorAll(".fake").forEach(el => el.remove());
-
+function spawnFakesIfNeeded() {
     if (mode.value === "challenge" &&
         field.clientWidth >= maxField.width) {
 
-        let count = Math.min(2 + Math.floor(score / 3), 6);
+        let count = Math.min(2 + Math.floor(score / 3), 5);
 
         for (let i = 0; i < count; i++) {
             const fake = document.createElement("div");
-            fake.classList.add("fake");
+            fake.className = "fake";
 
-            fake.style.width = "40px";
-            fake.style.height = "40px";
-            fake.style.position = "absolute";
-            fake.style.background = "red";
+            fake.style.left = Math.random() * (field.clientWidth - 40) + "px";
+            fake.style.top = Math.random() * (field.clientHeight - 40) + "px";
 
-            let x = Math.random() * (field.clientWidth - 40);
-            let y = Math.random() * (field.clientHeight - 40);
-
-            fake.style.left = x + "px";
-            fake.style.top = y + "px";
-
-            fake.onclick = () => endGame();
+            fake.onclick = endGame;
 
             field.appendChild(fake);
         }
     }
+}
+
+function removeFakes() {
+    document.querySelectorAll(".fake").forEach(el => el.remove());
 }
 
 square.onclick = () => {
@@ -177,17 +157,14 @@ function endGame() {
 }
 
 again.onclick = () => {
-    game.classList.remove("hidden");
-    end.classList.add("hidden");
-
-    score = 0;
-    scoreEl.textContent = score;
-
-    setupField();
-    startRound();
+    startNewGame(); 
 };
 
 back.onclick = () => {
+    clearInterval(timer);
+    removeFakes();
+
     end.classList.add("hidden");
+    game.classList.add("hidden");
     menu.classList.remove("hidden");
 };
