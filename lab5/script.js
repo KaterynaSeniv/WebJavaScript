@@ -3,6 +3,8 @@ const difficulty = document.getElementById("difficulty");
 const colorPicker = document.getElementById("colorPicker");
 const startBtn = document.getElementById("startBtn");
 
+const warning = document.getElementById("warning");
+
 const menu = document.getElementById("menu");
 const game = document.getElementById("game");
 const end = document.getElementById("end");
@@ -33,16 +35,21 @@ const maxField = {
 };
 
 function check() {
-    startBtn.disabled = !(mode.value && difficulty.value && colorPicker.value);
+    const ready = mode.value && difficulty.value && colorPicker.value;
+    startBtn.disabled = !ready;
+
+    if (mode.value === "challenge") {
+        warning.classList.remove("hidden");
+    } else {
+        warning.classList.add("hidden");
+    }
 }
 
 mode.onchange = check;
 difficulty.onchange = check;
 colorPicker.oninput = check;
 
-startBtn.onclick = () => {
-    startNewGame();
-};
+startBtn.onclick = () => startNewGame();
 
 function startNewGame() {
     clearInterval(timer);
@@ -87,7 +94,7 @@ function startRound() {
     timeEl.textContent = timeLeft.toFixed(1);
 
     moveSquare();
-    spawnFakesIfNeeded();
+    spawnFakes();
 
     timer = setInterval(() => {
         timeLeft -= 0.1;
@@ -109,14 +116,11 @@ function moveSquare() {
         field.style.height = newH + "px";
     }
 
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
-
-    square.style.left = x + "px";
-    square.style.top = y + "px";
+    square.style.left = Math.random() * maxX + "px";
+    square.style.top = Math.random() * maxY + "px";
 }
 
-function spawnFakesIfNeeded() {
+function spawnFakes() {
     if (mode.value === "challenge" &&
         field.clientWidth >= maxField.width) {
 
@@ -156,9 +160,7 @@ function endGame() {
     final.textContent = score;
 }
 
-again.onclick = () => {
-    startNewGame(); 
-};
+again.onclick = () => startNewGame();
 
 back.onclick = () => {
     clearInterval(timer);
