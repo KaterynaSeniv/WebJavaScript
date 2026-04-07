@@ -16,6 +16,7 @@ body {
   height: 60px;
   cursor: pointer;
   border-radius: 8px;
+  transition: 0.2s;
 }
 
 .on {
@@ -24,6 +25,10 @@ body {
 
 .off {
   background: #333;
+}
+
+.cell:active {
+  transform: scale(0.9);
 }
 
 .buttons button {
