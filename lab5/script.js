@@ -29,10 +29,12 @@ const settings = {
     hard: 1
 };
 
-const maxField = {
-    width: 700,
-    height: 500
-};
+function getMaxFieldSize() {
+    return {
+        width: Math.min(window.innerWidth * 0.9, 700),
+        height: Math.min(window.innerHeight * 0.7, 500)
+    };
+}
 
 function check() {
     startBtn.disabled = !(mode.value && difficulty.value && colorPicker.value);
@@ -110,6 +112,8 @@ function moveSquare() {
     let maxY = field.clientHeight - 40;
 
     if (mode.value === "challenge") {
+        const maxField = getMaxFieldSize();
+
         let newW = Math.min(400 + score * 15, maxField.width);
         let newH = Math.min(300 + score * 10, maxField.height);
 
@@ -125,6 +129,8 @@ function moveSquare() {
 }
 
 function spawnFakes() {
+    const maxField = getMaxFieldSize();
+
     if (mode.value === "challenge" && field.clientWidth >= maxField.width) {
         let count = Math.min(2 + Math.floor(score / 3), 5);
 
