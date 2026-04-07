@@ -8,6 +8,9 @@ let moves = 0;
 let time = 0;
 let timerInterval;
 
+let currentSolution = [];
+let hintIndex = 0;
+
 async function loadLevels() {
   const res = await fetch("data.json");
   const data = await res.json();
@@ -31,6 +34,9 @@ function startGame() {
 
   grid = JSON.parse(JSON.stringify(level.grid));
   initialGrid = JSON.parse(JSON.stringify(level.grid));
+
+  currentSolution = level.solution || [];
+  hintIndex = 0;
 
   moves = 0;
   time = 0;
@@ -60,20 +66,14 @@ function toggle(r, c) {
 }
 
 function handleClick(r, c) {
-  const before = JSON.stringify(grid);
-
   toggle(r, c);
   toggle(r - 1, c);
   toggle(r + 1, c);
   toggle(r, c - 1);
   toggle(r, c + 1);
 
-  const after = JSON.stringify(grid);
-
-  if (before !== after) {
-    moves++;
-    document.getElementById("moves").textContent = moves;
-  }
+  moves++;
+  document.getElementById("moves").textContent = moves;
 
   render();
   checkWin();
@@ -118,6 +118,8 @@ function restartGame() {
   moves = 0;
   time = 0;
 
+  hintIndex = 0;
+
   document.getElementById("moves").textContent = moves;
   document.getElementById("time").textContent = time;
 
@@ -127,81 +129,28 @@ function restartGame() {
   startTimer();
 }
 
-function copyGrid(g) {
-  return g.map(row => [...row]);
-}
-
-function toggleSolver(g, r, c) {
-  if (r < 0 || c < 0 || r >= 5 || c >= 5) return;
-  g[r][c] = g[r][c] === 1 ? 0 : 1;
-}
-
-function clickSolver(g, r, c) {
-  toggleSolver(g, r, c);
-  toggleSolver(g, r-1, c);
-  toggleSolver(g, r+1, c);
-  toggleSolver(g, r, c-1);
-  toggleSolver(g, r, c+1);
-}
-
-function solveLightsOut(startGrid) {
-  let bestSolution = null;
-
-  for (let mask = 0; mask < (1 << 5); mask++) {
-    let g = copyGrid(startGrid);
-    let moves = [];
-
-    for (let c = 0; c < 5; c++) {
-      if (mask & (1 << c)) {
-        clickSolver(g, 0, c);
-        moves.push([0, c]);
-      }
-    }
-
-    for (let r = 1; r < 5; r++) {
-      for (let c = 0; c < 5; c++) {
-        if (g[r-1][c] === 1) {
-          clickSolver(g, r, c);
-          moves.push([r, c]);
-        }
-      }
-    }
-
-    if (g[4].every(cell => cell === 0)) {
-      if (!bestSolution || moves.length < bestSolution.length) {
-        bestSolution = moves;
-      }
-    }
-  }
-
-  return bestSolution;
-}
-
-function autoSolve() {
-  const solution = solveLightsOut(grid);
-
-  if (!solution) {
-    alert("Немає рішення");
+function showHint() {
+  if (hintIndex >= currentSolution.length) {
+    alert("Більше підказок немає");
     return;
   }
 
-  animateSolution(solution);
+  const [r, c] = currentSolution[hintIndex];
+  highlightCell(r, c);
+
+  hintIndex++;
 }
 
-function animateSolution(solution) {
-  let i = 0;
+function highlightCell(r, c) {
+  const index = r * 5 + c;
+  const board = document.getElementById("board");
+  const cell = board.children[index];
 
-  const interval = setInterval(() => {
-    if (i >= solution.length) {
-      clearInterval(interval);
-      return;
-    }
+  cell.style.outline = "3px solid red";
 
-    const [r, c] = solution[i];
-    handleClick(r, c);
-
-    i++;
-  }, 400);
+  setTimeout(() => {
+    cell.style.outline = "";
+  }, 800);
 }
 
 loadLevels();
