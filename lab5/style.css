@@ -24,15 +24,18 @@ button {
     border: 1px solid #555;
     margin: 20px auto;
     position: relative;
+    overflow: hidden;
 }
 
 #square {
     width: 40px;
     height: 40px;
     position: absolute;
+    border-radius: 6px;
 }
 
 .fake {
     cursor: pointer;
     opacity: 0.8;
+    border-radius: 6px;
 }
