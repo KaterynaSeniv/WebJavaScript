@@ -7,46 +7,41 @@
 </head>
 <body>
 
-<div class="container">
+<h1>Square Hunter</h1>
 
-    <h1> Pixel Hunter</h1>
+<div id="menu">
+    <select id="mode">
+        <option value="">Режим</option>
+        <option value="normal">Звичайний</option>
+        <option value="challenge">Challenge Day</option>
+    </select>
 
-    <div id="menu" class="card">
-        <h2>Налаштування</h2>
+    <select id="difficulty">
+        <option value="">Складність</option>
+        <option value="easy">Легка</option>
+        <option value="medium">Середня</option>
+        <option value="hard">Важка</option>
+    </select>
 
-        <label>Складність</label>
-        <select id="difficulty">
-            <option value="">--Обери--</option>
-            <option value="easy">Легка</option>
-            <option value="medium">Середня</option>
-            <option value="hard">Важка</option>
-        </select>
+    <input type="color" id="colorPicker">
 
-        <label>Колір квадрата</label>
-        <input type="color" id="colorPicker">
+    <button id="startBtn" disabled>Start</button>
+</div>
 
-        <button id="startBtn" disabled>Почати гру</button>
+<div id="game" class="hidden">
+    <p>Очки: <span id="score">0</span></p>
+    <p>Час: <span id="time">0</span></p>
+
+    <div id="field">
+        <div id="square"></div>
     </div>
+</div>
 
-    <div id="game" class="card hidden">
-        <div class="info">
-            <span>Очки: <b id="score">0</b></span>
-            <span>Час: <b id="time">0</b></span>
-        </div>
-
-        <div id="field">
-            <div id="square"></div>
-        </div>
-    </div>
-
-    <div id="endScreen" class="card hidden">
-        <h2> Гра завершена</h2>
-        <p>Твій результат: <b id="finalScore"></b></p>
-
-        <button id="restartBtn">🔁 Ще раз</button>
-        <button id="menuBtn">⬅️ В меню</button>
-    </div>
-
+<div id="end" class="hidden">
+    <h2>Game Over</h2>
+    <p>Очки: <span id="final"></span></p>
+    <button id="again">Ще раз</button>
+    <button id="back">Меню</button>
 </div>
 
 <script src="script.js"></script>
