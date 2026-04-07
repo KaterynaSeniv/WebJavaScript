@@ -1,99 +1,115 @@
+const mode = document.getElementById("mode");
 const difficulty = document.getElementById("difficulty");
 const colorPicker = document.getElementById("colorPicker");
 const startBtn = document.getElementById("startBtn");
 
 const menu = document.getElementById("menu");
 const game = document.getElementById("game");
-const endScreen = document.getElementById("endScreen");
+const end = document.getElementById("end");
 
 const square = document.getElementById("square");
 const scoreEl = document.getElementById("score");
 const timeEl = document.getElementById("time");
-const finalScore = document.getElementById("finalScore");
+const final = document.getElementById("final");
 
-const restartBtn = document.getElementById("restartBtn");
-const menuBtn = document.getElementById("menuBtn");
+const again = document.getElementById("again");
+const back = document.getElementById("back");
 
-let score, time, timer, moveInterval;
+let score = 0;
+let timer;
+let timeLeft;
+let moveInterval;
 
 const settings = {
-    easy: { time: 12, speed: 900 },
-    medium: { time: 8, speed: 600 },
-    hard: { time: 5, speed: 350 }
+    easy: 2,
+    medium: 1.5,
+    hard: 1
 };
 
-function checkStart() {
-    startBtn.disabled = !(difficulty.value && colorPicker.value);
+function check() {
+    startBtn.disabled = !(mode.value && difficulty.value && colorPicker.value);
 }
 
-difficulty.addEventListener("change", checkStart);
-colorPicker.addEventListener("input", checkStart);
+mode.onchange = check;
+difficulty.onchange = check;
+colorPicker.oninput = check;
 
-startBtn.addEventListener("click", startGame);
-
-function startGame() {
+startBtn.onclick = () => {
     menu.classList.add("hidden");
-    endScreen.classList.add("hidden");
+    end.classList.add("hidden");
     game.classList.remove("hidden");
 
     score = 0;
     scoreEl.textContent = score;
 
-    const level = settings[difficulty.value];
-    time = level.time;
-    timeEl.textContent = time;
+    square.style.background = colorPicker.value;
 
-    square.style.backgroundColor = colorPicker.value;
+    startRound();
+};
 
-    moveSquare(level.speed);
-    startTimer();
-}
+function startRound() {
+    clearInterval(timer);
 
-function startTimer() {
+    timeLeft = settings[difficulty.value];
+    timeEl.textContent = timeLeft.toFixed(1);
+
+    moveSquare();
+
     timer = setInterval(() => {
-        time--;
-        timeEl.textContent = time;
+        timeLeft -= 0.1;
+        timeEl.textContent = timeLeft.toFixed(1);
 
-        if (time <= 0) endGame();
-    }, 1000);
+        if (timeLeft <= 0) endGame();
+    }, 100);
 }
 
-function moveSquare(speed) {
-    moveInterval = setInterval(() => {
-        const field = document.getElementById("field");
+function moveSquare() {
+    const field = document.getElementById("field");
 
-        const maxX = field.clientWidth - 50;
-        const maxY = field.clientHeight - 50;
+    let maxX = field.clientWidth - 40;
+    let maxY = field.clientHeight - 40;
 
-        const x = Math.random() * maxX;
-        const y = Math.random() * maxY;
+    if (mode.value === "challenge") {
+        field.style.width = (400 + score * 10) + "px";
+        field.style.height = (300 + score * 5) + "px";
+    }
 
-        square.style.left = x + "px";
-        square.style.top = y + "px";
-    }, speed);
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    square.style.left = x + "px";
+    square.style.top = y + "px";
+
+    if (mode.value === "challenge") {
+        square.style.transition = "0.3s linear";
+    } else {
+        square.style.transition = "none";
+    }
 }
 
-square.addEventListener("click", () => {
+square.onclick = () => {
     score++;
     scoreEl.textContent = score;
 
-    square.style.transform = "scale(1.2)";
-    setTimeout(() => square.style.transform = "scale(1)", 100);
-});
+    startRound(); 
+};
 
 function endGame() {
     clearInterval(timer);
-    clearInterval(moveInterval);
 
     game.classList.add("hidden");
-    endScreen.classList.remove("hidden");
+    end.classList.remove("hidden");
 
-    finalScore.textContent = score;
+    final.textContent = score;
 }
 
-restartBtn.addEventListener("click", startGame);
+again.onclick = () => {
+    game.classList.remove("hidden");
+    end.classList.add("hidden");
+    startRound();
+};
 
-menuBtn.addEventListener("click", () => {
-    endScreen.classList.add("hidden");
+back.onclick = () => {
+    end.classList.add("hidden");
     menu.classList.remove("hidden");
-});
+};
