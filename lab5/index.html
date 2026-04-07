@@ -9,7 +9,7 @@
 
 <h1>Square Hunter</h1>
 
-<div id="menu" class="card">
+<div id="menu">
     <select id="mode">
         <option value="">Режим</option>
         <option value="normal">Звичайний</option>
@@ -25,15 +25,15 @@
 
     <input type="color" id="colorPicker">
 
-    <p class="hint">⚠️ У Challenge режимі не рекомендується обирати червоний</p>
+    <p id="warning" class="hidden">⚠️ У Challenge режимі не рекомендується червоний</p>
 
     <button id="startBtn" disabled>Start</button>
 </div>
 
-<div id="game" class="card hidden">
-    <div class="info">
+<div id="game" class="hidden">
+    <div>
         <span>Очки: <b id="score">0</b></span>
-        <span>Час: <b id="time">0</b></span>
+        <span style="margin-left:20px;">Час: <b id="time">0</b></span>
     </div>
 
     <div id="field">
@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<div id="end" class="card hidden">
+<div id="end" class="hidden">
     <h2>Game Over</h2>
     <p>Очки: <span id="final"></span></p>
     <button id="again">Ще раз</button>
