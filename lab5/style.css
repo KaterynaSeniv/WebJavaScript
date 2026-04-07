@@ -9,7 +9,7 @@ body {
 }
 
 #menu, #game, #end {
-    width: fit-content;
+    width: fit-content; 
     margin: 40px auto;
     text-align: center;
 }
@@ -43,8 +43,13 @@ button:hover {
 }
 
 #field {
+    margin: 15px auto;         
+    display: block;         
+
+    max-width: 700px;          
+    max-height: 500px;         
+
     border: 1px solid #555;
-    margin: 15px auto;
     position: relative;
     overflow: hidden;
 }
