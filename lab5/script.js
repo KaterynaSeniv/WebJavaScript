@@ -13,6 +13,7 @@ const field = document.getElementById("field");
 const scoreEl = document.getElementById("score");
 const timeEl = document.getElementById("time");
 const final = document.getElementById("final");
+const warning = document.getElementById("warning");
 
 const again = document.getElementById("again");
 const back = document.getElementById("back");
@@ -32,8 +33,25 @@ const maxField = {
     height: 500
 };
 
+function isRed(color) {
+    return color.toLowerCase() === "#ff0000";
+}
+
 function check() {
-    startBtn.disabled = !(mode.value && difficulty.value && colorPicker.value);
+    if (!mode.value || !difficulty.value || !colorPicker.value) {
+        startBtn.disabled = true;
+        return;
+    }
+
+    if (mode.value === "challenge" && isRed(colorPicker.value)) {
+        startBtn.disabled = true;
+        warning.textContent = "У Challenge режимі не можна обирати червоний!";
+        return;
+    } else {
+        warning.textContent = "";
+    }
+
+    startBtn.disabled = false;
 }
 
 mode.onchange = check;
@@ -128,7 +146,6 @@ function spawnFakeSquares() {
             fake.style.height = "40px";
             fake.style.position = "absolute";
             fake.style.background = "red";
-            fake.style.borderRadius = "6px";
 
             let x = Math.random() * (field.clientWidth - 40);
             let y = Math.random() * (field.clientHeight - 40);
@@ -136,7 +153,7 @@ function spawnFakeSquares() {
             fake.style.left = x + "px";
             fake.style.top = y + "px";
 
-            fake.onclick = () => endGame(); 
+            fake.onclick = () => endGame();
 
             field.appendChild(fake);
         }
@@ -163,6 +180,10 @@ again.onclick = () => {
     game.classList.remove("hidden");
     end.classList.add("hidden");
 
+    score = 0;
+    scoreEl.textContent = score;
+
+    setupField();
     startRound();
 };
 
