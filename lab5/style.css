@@ -31,3 +31,8 @@ button {
     height: 40px;
     position: absolute;
 }
+
+.fake {
+    cursor: pointer;
+    opacity: 0.8;
+}
