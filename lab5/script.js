@@ -35,8 +35,11 @@ const maxField = {
 };
 
 function check() {
-    const ready = mode.value && difficulty.value && colorPicker.value;
-    startBtn.disabled = !ready;
+    if (mode.value && difficulty.value && colorPicker.value) {
+        startBtn.disabled = false;
+    } else {
+        startBtn.disabled = true;
+    }
 
     if (mode.value === "challenge") {
         warning.classList.remove("hidden");
@@ -45,11 +48,11 @@ function check() {
     }
 }
 
-mode.onchange = check;
-difficulty.onchange = check;
-colorPicker.oninput = check;
+mode.addEventListener("change", check);
+difficulty.addEventListener("change", check);
+colorPicker.addEventListener("input", check);
 
-startBtn.onclick = () => startNewGame();
+startBtn.addEventListener("click", startNewGame);
 
 function startNewGame() {
     clearInterval(timer);
@@ -100,7 +103,9 @@ function startRound() {
         timeLeft -= 0.1;
         timeEl.textContent = timeLeft.toFixed(1);
 
-        if (timeLeft <= 0) endGame();
+        if (timeLeft <= 0) {
+            endGame();
+        }
     }, 100);
 }
 
@@ -116,22 +121,28 @@ function moveSquare() {
         field.style.height = newH + "px";
     }
 
-    square.style.left = Math.random() * maxX + "px";
-    square.style.top = Math.random() * maxY + "px";
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    square.style.left = x + "px";
+    square.style.top = y + "px";
 }
 
 function spawnFakes() {
-    if (mode.value === "challenge" &&
-        field.clientWidth >= maxField.width) {
-
+    if (
+        mode.value === "challenge" &&
+        field.clientWidth >= maxField.width
+    ) {
         let count = Math.min(2 + Math.floor(score / 3), 5);
 
         for (let i = 0; i < count; i++) {
             const fake = document.createElement("div");
             fake.className = "fake";
 
-            fake.style.left = Math.random() * (field.clientWidth - 40) + "px";
-            fake.style.top = Math.random() * (field.clientHeight - 40) + "px";
+            fake.style.left =
+                Math.random() * (field.clientWidth - 40) + "px";
+            fake.style.top =
+                Math.random() * (field.clientHeight - 40) + "px";
 
             fake.onclick = endGame;
 
@@ -144,12 +155,12 @@ function removeFakes() {
     document.querySelectorAll(".fake").forEach(el => el.remove());
 }
 
-square.onclick = () => {
+square.addEventListener("click", () => {
     score++;
     scoreEl.textContent = score;
 
     startRound();
-};
+});
 
 function endGame() {
     clearInterval(timer);
@@ -160,13 +171,13 @@ function endGame() {
     final.textContent = score;
 }
 
-again.onclick = () => startNewGame();
+again.addEventListener("click", startNewGame);
 
-back.onclick = () => {
+back.addEventListener("click", () => {
     clearInterval(timer);
     removeFakes();
 
     end.classList.add("hidden");
     game.classList.add("hidden");
     menu.classList.remove("hidden");
-};
+});
