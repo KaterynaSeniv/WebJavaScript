@@ -35,11 +35,7 @@ const maxField = {
 };
 
 function check() {
-    if (mode.value && difficulty.value && colorPicker.value) {
-        startBtn.disabled = false;
-    } else {
-        startBtn.disabled = true;
-    }
+    startBtn.disabled = !(mode.value && difficulty.value && colorPicker.value);
 
     if (mode.value === "challenge") {
         warning.classList.remove("hidden");
@@ -129,20 +125,15 @@ function moveSquare() {
 }
 
 function spawnFakes() {
-    if (
-        mode.value === "challenge" &&
-        field.clientWidth >= maxField.width
-    ) {
+    if (mode.value === "challenge" && field.clientWidth >= maxField.width) {
         let count = Math.min(2 + Math.floor(score / 3), 5);
 
         for (let i = 0; i < count; i++) {
             const fake = document.createElement("div");
             fake.className = "fake";
 
-            fake.style.left =
-                Math.random() * (field.clientWidth - 40) + "px";
-            fake.style.top =
-                Math.random() * (field.clientHeight - 40) + "px";
+            fake.style.left = Math.random() * (field.clientWidth - 40) + "px";
+            fake.style.top = Math.random() * (field.clientHeight - 40) + "px";
 
             fake.onclick = endGame;
 
@@ -158,7 +149,6 @@ function removeFakes() {
 square.addEventListener("click", () => {
     score++;
     scoreEl.textContent = score;
-
     startRound();
 });
 
