@@ -39,6 +39,8 @@ function startGame() {
   document.getElementById("time").textContent = time;
   document.getElementById("minSteps").textContent = level.minSteps;
 
+  document.getElementById("winMessage").classList.add("hidden");
+
   render();
   startTimer();
 }
@@ -98,18 +100,12 @@ function checkWin() {
 
   if (isWin) {
     clearInterval(timerInterval);
-    showWin();
+
+    document.getElementById("finalTime").textContent = time;
+    document.getElementById("finalMoves").textContent = moves;
+
+    document.getElementById("winMessage").classList.remove("hidden");
   }
-}
-
-function showWin() {
-  document.getElementById("finalTime").textContent = time;
-  document.getElementById("finalMoves").textContent = moves;
-  document.getElementById("winModal").classList.remove("hidden");
-}
-
-function closeModal() {
-  document.getElementById("winModal").classList.add("hidden");
 }
 
 function newGame() {
@@ -124,6 +120,8 @@ function restartGame() {
 
   document.getElementById("moves").textContent = moves;
   document.getElementById("time").textContent = time;
+
+  document.getElementById("winMessage").classList.add("hidden");
 
   render();
   startTimer();
