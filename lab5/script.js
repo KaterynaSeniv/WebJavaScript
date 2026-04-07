@@ -8,6 +8,8 @@ const game = document.getElementById("game");
 const end = document.getElementById("end");
 
 const square = document.getElementById("square");
+const field = document.getElementById("field");
+
 const scoreEl = document.getElementById("score");
 const timeEl = document.getElementById("time");
 const final = document.getElementById("final");
@@ -18,12 +20,16 @@ const back = document.getElementById("back");
 let score = 0;
 let timer;
 let timeLeft;
-let moveInterval;
 
 const settings = {
     easy: 2,
     medium: 1.5,
     hard: 1
+};
+
+const maxField = {
+    width: 700,
+    height: 500
 };
 
 function check() {
@@ -44,8 +50,27 @@ startBtn.onclick = () => {
 
     square.style.background = colorPicker.value;
 
+    setupField();
     startRound();
 };
+
+function setupField() {
+    if (mode.value === "normal") {
+        if (difficulty.value === "easy") {
+            field.style.width = "300px";
+            field.style.height = "200px";
+        } else if (difficulty.value === "medium") {
+            field.style.width = "500px";
+            field.style.height = "300px";
+        } else {
+            field.style.width = "90vw";
+            field.style.height = "70vh";
+        }
+    } else {
+        field.style.width = "400px";
+        field.style.height = "300px";
+    }
+}
 
 function startRound() {
     clearInterval(timer);
@@ -54,6 +79,7 @@ function startRound() {
     timeEl.textContent = timeLeft.toFixed(1);
 
     moveSquare();
+    spawnFakeSquares();
 
     timer = setInterval(() => {
         timeLeft -= 0.1;
@@ -64,14 +90,19 @@ function startRound() {
 }
 
 function moveSquare() {
-    const field = document.getElementById("field");
-
     let maxX = field.clientWidth - 40;
     let maxY = field.clientHeight - 40;
 
     if (mode.value === "challenge") {
-        field.style.width = (400 + score * 10) + "px";
-        field.style.height = (300 + score * 5) + "px";
+        let newW = Math.min(400 + score * 15, maxField.width);
+        let newH = Math.min(300 + score * 10, maxField.height);
+
+        field.style.width = newW + "px";
+        field.style.height = newH + "px";
+
+        square.style.transition = "0.3s linear";
+    } else {
+        square.style.transition = "none";
     }
 
     const x = Math.random() * maxX;
@@ -79,11 +110,36 @@ function moveSquare() {
 
     square.style.left = x + "px";
     square.style.top = y + "px";
+}
 
-    if (mode.value === "challenge") {
-        square.style.transition = "0.3s linear";
-    } else {
-        square.style.transition = "none";
+function spawnFakeSquares() {
+    document.querySelectorAll(".fake").forEach(el => el.remove());
+
+    if (mode.value === "challenge" &&
+        field.clientWidth >= maxField.width) {
+
+        let count = Math.min(2 + Math.floor(score / 3), 6);
+
+        for (let i = 0; i < count; i++) {
+            const fake = document.createElement("div");
+            fake.classList.add("fake");
+
+            fake.style.width = "40px";
+            fake.style.height = "40px";
+            fake.style.position = "absolute";
+            fake.style.background = "red";
+            fake.style.borderRadius = "6px";
+
+            let x = Math.random() * (field.clientWidth - 40);
+            let y = Math.random() * (field.clientHeight - 40);
+
+            fake.style.left = x + "px";
+            fake.style.top = y + "px";
+
+            fake.onclick = () => endGame(); 
+
+            field.appendChild(fake);
+        }
     }
 }
 
@@ -91,7 +147,7 @@ square.onclick = () => {
     score++;
     scoreEl.textContent = score;
 
-    startRound(); 
+    startRound();
 };
 
 function endGame() {
@@ -106,6 +162,7 @@ function endGame() {
 again.onclick = () => {
     game.classList.remove("hidden");
     end.classList.add("hidden");
+
     startRound();
 };
 
