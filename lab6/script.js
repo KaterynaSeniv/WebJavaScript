@@ -98,8 +98,18 @@ function checkWin() {
 
   if (isWin) {
     clearInterval(timerInterval);
-    setTimeout(() => alert("Перемога!"), 100);
+    showWin();
   }
+}
+
+function showWin() {
+  document.getElementById("finalTime").textContent = time;
+  document.getElementById("finalMoves").textContent = moves;
+  document.getElementById("winModal").classList.remove("hidden");
+}
+
+function closeModal() {
+  document.getElementById("winModal").classList.add("hidden");
 }
 
 function newGame() {
@@ -117,6 +127,83 @@ function restartGame() {
 
   render();
   startTimer();
+}
+
+function copyGrid(g) {
+  return g.map(row => [...row]);
+}
+
+function toggleSolver(g, r, c) {
+  if (r < 0 || c < 0 || r >= 5 || c >= 5) return;
+  g[r][c] = g[r][c] === 1 ? 0 : 1;
+}
+
+function clickSolver(g, r, c) {
+  toggleSolver(g, r, c);
+  toggleSolver(g, r-1, c);
+  toggleSolver(g, r+1, c);
+  toggleSolver(g, r, c-1);
+  toggleSolver(g, r, c+1);
+}
+
+function solveLightsOut(startGrid) {
+  let bestSolution = null;
+
+  for (let mask = 0; mask < (1 << 5); mask++) {
+    let g = copyGrid(startGrid);
+    let moves = [];
+
+    for (let c = 0; c < 5; c++) {
+      if (mask & (1 << c)) {
+        clickSolver(g, 0, c);
+        moves.push([0, c]);
+      }
+    }
+
+    for (let r = 1; r < 5; r++) {
+      for (let c = 0; c < 5; c++) {
+        if (g[r-1][c] === 1) {
+          clickSolver(g, r, c);
+          moves.push([r, c]);
+        }
+      }
+    }
+
+    if (g[4].every(cell => cell === 0)) {
+      if (!bestSolution || moves.length < bestSolution.length) {
+        bestSolution = moves;
+      }
+    }
+  }
+
+  return bestSolution;
+}
+
+function autoSolve() {
+  const solution = solveLightsOut(grid);
+
+  if (!solution) {
+    alert("Немає рішення");
+    return;
+  }
+
+  animateSolution(solution);
+}
+
+function animateSolution(solution) {
+  let i = 0;
+
+  const interval = setInterval(() => {
+    if (i >= solution.length) {
+      clearInterval(interval);
+      return;
+    }
+
+    const [r, c] = solution[i];
+    handleClick(r, c);
+
+    i++;
+  }, 400);
 }
 
 loadLevels();
