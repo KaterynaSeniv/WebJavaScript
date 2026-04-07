@@ -20,6 +20,16 @@
 <div class="buttons">
   <button onclick="newGame()">New Game</button>
   <button onclick="restartGame()">Restart</button>
+  <button onclick="autoSolve()">Solve</button>
+</div>
+
+<div id="winModal" class="hidden">
+  <div class="modal-content">
+    <h2>Перемога!</h2>
+    <p>Час: <span id="finalTime"></span> сек</p>
+    <p>Ходи: <span id="finalMoves"></span></p>
+    <button onclick="closeModal()">OK</button>
+  </div>
 </div>
 
 <script src="script.js"></script>
