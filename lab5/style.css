@@ -1,17 +1,35 @@
 body {
-    font-family: sans-serif;
+    font-family: Arial;
     text-align: center;
-    background: #111;
-    color: #fff;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: white;
+}
+
+.card {
+    background: #0f3460;
+    padding: 20px;
+    border-radius: 12px;
+    width: 320px;
+    margin: 20px auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
 }
 
 select, input, button {
-    margin: 8px;
+    width: 100%;
+    margin: 8px 0;
     padding: 8px;
+    border-radius: 6px;
+    border: none;
 }
 
 button {
+    background: #e94560;
+    color: white;
     cursor: pointer;
+}
+
+button:hover {
+    background: #ff2e63;
 }
 
 .hidden {
@@ -21,21 +39,31 @@ button {
 #field {
     width: 400px;
     height: 300px;
-    border: 1px solid #555;
+    background: #111;
     margin: 20px auto;
     position: relative;
     overflow: hidden;
+    border-radius: 10px;
 }
 
-#square {
+#square, .fake {
     width: 40px;
     height: 40px;
     position: absolute;
     border-radius: 6px;
+    cursor: pointer;
 }
 
 .fake {
-    cursor: pointer;
-    opacity: 0.8;
-    border-radius: 6px;
+    background: red;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.hint {
+    font-size: 12px;
+    opacity: 0.7;
 }
