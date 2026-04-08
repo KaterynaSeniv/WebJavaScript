@@ -14,8 +14,10 @@ function setActiveButton(activeId) {
     if (btn) btn.disabled = false;
   });
 
-  const activeBtn = document.getElementById(activeId);
-  if (activeBtn) activeBtn.disabled = true;
+  if (activeId) {
+    const activeBtn = document.getElementById(activeId);
+    if (activeBtn) activeBtn.disabled = true;
+  }
 }
 
 function loadHome(force = false) {
@@ -84,8 +86,6 @@ function showItems(items, categoryName) {
     `;
   });
 
-  html += `<br><button class="back-btn" onclick="loadCatalog()">⬅ Назад</button>`;
-
   document.getElementById("content").innerHTML = html;
 }
 
@@ -102,15 +102,12 @@ function generateSpecials() {
   fetch('data/categories.json')
     .then(res => res.json())
     .then(categories => {
-
       let promises = categories.map(cat =>
         fetch(`data/${cat.shortname}.json`).then(res => res.json())
       );
 
       Promise.all(promises).then(allData => {
-
         let allItems = [];
-
         allData.forEach((items, index) => {
           items.forEach(item => {
             allItems.push({
@@ -129,7 +126,7 @@ function generateSpecials() {
 }
 
 function showSpecials(items) {
-  let html = `<h2> Specials</h2>
+  let html = `<h2>Specials</h2>
               <p style="color:#94a3b8">Випадкові товари з різних категорій</p>`;
 
   items.forEach(item => {
@@ -144,9 +141,7 @@ function showSpecials(items) {
     `;
   });
 
-  html += `<br>
-    <button class="back-btn" onclick="generateSpecials()">🔄 Перегенерувати</button>
-  `;
+  html += `<br><button class="back-btn" onclick="generateSpecials()">🔄 Перегенерувати</button>`;
 
   document.getElementById("content").innerHTML = html;
 }
