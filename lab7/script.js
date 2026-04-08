@@ -1,4 +1,29 @@
-function loadHome() {
+let currentPage = "home";
+
+init();
+
+function init() {
+  loadHome(true);
+}
+
+function setActiveButton(activeId) {
+  const buttons = ["homeBtn", "catalogBtn", "specialsBtn"];
+
+  buttons.forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.disabled = false;
+  });
+
+  const activeBtn = document.getElementById(activeId);
+  if (activeBtn) activeBtn.disabled = true;
+}
+
+function loadHome(force = false) {
+  if (currentPage === "home" && !force) return;
+
+  currentPage = "home";
+  setActiveButton("homeBtn");
+
   document.getElementById("content").innerHTML = `
     <div class="welcome">
       <h2>Ласкаво просимо 💎</h2>
@@ -7,9 +32,12 @@ function loadHome() {
   `;
 }
 
-loadHome();
-
 function loadCatalog() {
+  if (currentPage === "catalog") return;
+
+  currentPage = "catalog";
+  setActiveButton("catalogBtn");
+
   fetch('data/categories.json')
     .then(res => res.json())
     .then(data => showCategories(data));
@@ -34,6 +62,9 @@ function showCategories(categories) {
 }
 
 function loadCategory(shortname, name) {
+  currentPage = "category";
+  setActiveButton(null);
+
   fetch(`data/${shortname}.json`)
     .then(res => res.json())
     .then(data => showItems(data, name));
@@ -59,6 +90,15 @@ function showItems(items, categoryName) {
 }
 
 function loadRandom() {
+  if (currentPage === "specials") return;
+
+  currentPage = "specials";
+  setActiveButton("specialsBtn");
+
+  generateSpecials();
+}
+
+function generateSpecials() {
   fetch('data/categories.json')
     .then(res => res.json())
     .then(categories => {
@@ -89,7 +129,8 @@ function loadRandom() {
 }
 
 function showSpecials(items) {
-  let html = `<h2> Specials</h2>`;
+  let html = `<h2> Specials</h2>
+              <p style="color:#94a3b8">Випадкові товари з різних категорій</p>`;
 
   items.forEach(item => {
     html += `
@@ -103,7 +144,9 @@ function showSpecials(items) {
     `;
   });
 
-  html += `<br><button class="back-btn" onclick="loadCatalog()">⬅ Назад</button>`;
+  html += `<br>
+    <button class="back-btn" onclick="generateSpecials()">🔄 Перегенерувати</button>
+  `;
 
   document.getElementById("content").innerHTML = html;
 }
