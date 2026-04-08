@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "Turquoise Bracelet",
+    "description": "Браслет з натуральної бірюзи",
+    "price": "$110"
+  },
+  {
+    "id": 2,
+    "name": "Turquoise Earrings",
+    "description": "Сережки з бірюзою ручної роботи",
+    "price": "$95"
+  }
+]
