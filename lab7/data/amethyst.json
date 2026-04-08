@@ -2,13 +2,29 @@
   {
     "id": 1,
     "name": "Amethyst Ring",
-    "description": "Кільце з натуральним аметистом, глибокий фіолетовий відтінок",
+    "shortname": "ring",
+    "description": "Кільце з натуральним аметистом",
     "price": "$140"
   },
   {
     "id": 2,
     "name": "Amethyst Necklace",
-    "description": "Намисто з полірованим аметистом",
+    "shortname": "necklace",
+    "description": "Намисто з аметистом",
     "price": "$180"
+  },
+  {
+    "id": 3,
+    "name": "Amethyst Bracelet",
+    "shortname": "bracelet",
+    "description": "Браслет ручної роботи",
+    "price": "$120"
+  },
+  {
+    "id": 4,
+    "name": "Amethyst Earrings",
+    "shortname": "earrings",
+    "description": "Сережки з аметистом",
+    "price": "$90"
   }
 ]
