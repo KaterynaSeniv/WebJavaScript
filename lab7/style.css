@@ -28,6 +28,12 @@ nav button:hover {
   color: white;
 }
 
+nav button:disabled {
+  background: #64748b;
+  color: #cbd5f5;
+  cursor: not-allowed;
+}
+
 #content {
   text-align: center;
   padding: 40px;
@@ -93,8 +99,12 @@ nav button:hover {
   margin-top: 20px;
   padding: 10px 20px;
   border: none;
-  background: #334155;
+  background: #22c55e;
   color: white;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.back-btn:hover {
+  background: #16a34a;
 }
