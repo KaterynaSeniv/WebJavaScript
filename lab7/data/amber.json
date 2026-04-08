@@ -1,30 +1,30 @@
 [
   {
     "id": 1,
-    "name": "Amethyst Ring",
+    "name": "Amber Ring",
     "shortname": "ring",
-    "description": "Кільце з натуральним аметистом",
-    "price": "$140"
-  },
-  {
-    "id": 2,
-    "name": "Amethyst Necklace",
-    "shortname": "necklace",
-    "description": "Намисто з аметистом",
-    "price": "$180"
-  },
-  {
-    "id": 3,
-    "name": "Amethyst Bracelet",
-    "shortname": "bracelet",
-    "description": "Браслет ручної роботи",
+    "description": "Кільце з бурштином",
     "price": "$120"
   },
   {
+    "id": 2,
+    "name": "Amber Pendant",
+    "shortname": "pendant",
+    "description": "Підвіска з бурштину",
+    "price": "$130"
+  },
+  {
+    "id": 3,
+    "name": "Amber Necklace",
+    "shortname": "necklace",
+    "description": "Намисто з бурштину",
+    "price": "$170"
+  },
+  {
     "id": 4,
-    "name": "Amethyst Earrings",
+    "name": "Amber Earrings",
     "shortname": "earrings",
-    "description": "Сережки з аметистом",
-    "price": "$90"
+    "description": "Сережки з бурштином",
+    "price": "$100"
   }
 ]
