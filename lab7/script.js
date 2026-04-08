@@ -1,6 +1,5 @@
 function loadHome() {
-  document.getElementById("content").innerHTML =
-    "<h2>Ласкаво просимо</h2>";
+  location.reload();
 }
 
 function loadCatalog() {
@@ -14,37 +13,45 @@ function showCategories(categories) {
 
   categories.forEach(cat => {
     html += `
-      <button onclick="loadCategory('${cat.shortname}')">
-        ${cat.name}
-      </button>
+      <div class="category">
+        <h3>${cat.name}</h3>
+        <p>${cat.notes}</p>
+        <button onclick="loadCategory('${cat.shortname}', '${cat.name}')">
+          Відкрити
+        </button>
+      </div>
     `;
   });
 
-  html += `<br><br>
-           <button onclick="loadRandom()">🎲 Specials</button>`;
+  html += `
+    <br>
+    <button onclick="loadRandom()">🎲 Specials</button>
+  `;
 
   document.getElementById("content").innerHTML = html;
 }
 
-function loadCategory(name) {
-  fetch(`data/${name}.json`)
+function loadCategory(shortname, name) {
+  fetch(`data/${shortname}.json`)
     .then(res => res.json())
     .then(data => showItems(data, name));
 }
 
-function showItems(items, category) {
-  let html = `<h2>${category} Jewelry</h2>`;
+function showItems(items, categoryName) {
+  let html = `<h2>${categoryName}</h2>`;
 
   items.forEach(item => {
     html += `
       <div class="item">
-        <img src="https://placehold.co/300x200?text=${category}" alt="img">
+        <img src="https://placehold.co/200x200?text=${item.shortname}">
         <h3>${item.name}</h3>
         <p>${item.description}</p>
-        <p><b>${item.price}</b></p>
+        <div class="price">${item.price}</div>
       </div>
     `;
   });
+
+  html += `<br><button class="back-btn" onclick="loadCatalog()">⬅ Назад</button>`;
 
   document.getElementById("content").innerHTML = html;
 }
@@ -54,6 +61,6 @@ function loadRandom() {
     .then(res => res.json())
     .then(categories => {
       let random = categories[Math.floor(Math.random() * categories.length)];
-      loadCategory(random.shortname);
+      loadCategory(random.shortname, random.name);
     });
 }
