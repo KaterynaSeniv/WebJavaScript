@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Amethyst",
+    "shortname": "amethyst",
+    "notes": "Прикраси з аметистом"
+  },
+  {
+    "id": 2,
+    "name": "Turquoise",
+    "shortname": "turquoise",
+    "notes": "Прикраси з бірюзою"
+  },
+  {
+    "id": 3,
+    "name": "Amber",
+    "shortname": "amber",
+    "notes": "Прикраси з бурштином"
+  }
+]
