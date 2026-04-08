@@ -34,12 +34,12 @@ function loadCategory(name) {
 }
 
 function showItems(items, category) {
-  let html = `<h2>${category}</h2>`;
+  let html = `<h2>${category} Jewelry</h2>`;
 
   items.forEach(item => {
     html += `
       <div class="item">
-        <img src="https://placehold.co/200x200" alt="img">
+        <img src="https://placehold.co/200x200?text=${category}" alt="img">
         <h3>${item.name}</h3>
         <p>${item.description}</p>
         <p><b>${item.price}</b></p>
