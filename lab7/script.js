@@ -38,7 +38,7 @@ function showItems(items, category) {
   items.forEach(item => {
     html += `
       <div class="item">
-        <img src="https://placehold.co/200x200?text=${category}" alt="img">
+        <img src="https://placehold.co/300x200?text=${category}" alt="img">
         <h3>${item.name}</h3>
         <p>${item.description}</p>
         <p><b>${item.price}</b></p>
