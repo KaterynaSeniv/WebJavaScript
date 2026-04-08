@@ -14,15 +14,14 @@ function showCategories(categories) {
 
   categories.forEach(cat => {
     html += `
-      <p>
-        <a href="#" onclick="loadCategory('${cat.shortname}')">
-          ${cat.name}
-        </a>
-      </p>
+      <button onclick="loadCategory('${cat.shortname}')">
+        ${cat.name}
+      </button>
     `;
   });
 
-  html += `<p><a href="#" onclick="loadRandom()">Specials</a></p>`;
+  html += `<br><br>
+           <button onclick="loadRandom()">🎲 Specials</button>`;
 
   document.getElementById("content").innerHTML = html;
 }
