@@ -1,14 +1,30 @@
 [
   {
     "id": 1,
-    "name": "Turquoise Bracelet",
-    "description": "Браслет з натуральної бірюзи",
+    "name": "Turquoise Ring",
+    "shortname": "ring",
+    "description": "Кільце з бірюзою",
     "price": "$110"
   },
   {
     "id": 2,
-    "name": "Turquoise Earrings",
-    "description": "Сережки з бірюзою ручної роботи",
+    "name": "Turquoise Necklace",
+    "shortname": "necklace",
+    "description": "Намисто з бірюзою",
+    "price": "$150"
+  },
+  {
+    "id": 3,
+    "name": "Turquoise Bracelet",
+    "shortname": "bracelet",
+    "description": "Браслет з натурального каміння",
     "price": "$95"
+  },
+  {
+    "id": 4,
+    "name": "Turquoise Earrings",
+    "shortname": "earrings",
+    "description": "Сережки ручної роботи",
+    "price": "$85"
   }
 ]
