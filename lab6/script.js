@@ -8,9 +8,6 @@ let moves = 0;
 let time = 0;
 let timerInterval;
 
-let currentSolution = [];
-let hintIndex = 0;
-
 async function loadLevels() {
   const res = await fetch("data.json");
   const data = await res.json();
@@ -35,9 +32,6 @@ function startGame() {
   grid = JSON.parse(JSON.stringify(level.grid));
   initialGrid = JSON.parse(JSON.stringify(level.grid));
 
-  currentSolution = level.solution || [];
-  hintIndex = 0;
-
   moves = 0;
   time = 0;
 
@@ -53,7 +47,6 @@ function startGame() {
 
 function startTimer() {
   clearInterval(timerInterval);
-
   timerInterval = setInterval(() => {
     time++;
     document.getElementById("time").textContent = time;
@@ -87,9 +80,7 @@ function render() {
     row.forEach((cell, c) => {
       const div = document.createElement("div");
       div.className = "cell " + (cell ? "on" : "off");
-
       div.addEventListener("click", () => handleClick(r, c));
-
       board.appendChild(div);
     });
   });
@@ -97,13 +88,10 @@ function render() {
 
 function checkWin() {
   const isWin = grid.flat().every(cell => cell === 0);
-
   if (isWin) {
     clearInterval(timerInterval);
-
     document.getElementById("finalTime").textContent = time;
     document.getElementById("finalMoves").textContent = moves;
-
     document.getElementById("winMessage").classList.remove("hidden");
   }
 }
@@ -114,43 +102,15 @@ function newGame() {
 
 function restartGame() {
   grid = JSON.parse(JSON.stringify(initialGrid));
-
   moves = 0;
   time = 0;
 
-  hintIndex = 0;
-
   document.getElementById("moves").textContent = moves;
   document.getElementById("time").textContent = time;
-
   document.getElementById("winMessage").classList.add("hidden");
 
   render();
   startTimer();
-}
-
-function showHint() {
-  if (hintIndex >= currentSolution.length) {
-    alert("Більше підказок немає");
-    return;
-  }
-
-  const [r, c] = currentSolution[hintIndex];
-  highlightCell(r, c);
-
-  hintIndex++;
-}
-
-function highlightCell(r, c) {
-  const index = r * 5 + c;
-  const board = document.getElementById("board");
-  const cell = board.children[index];
-
-  cell.style.outline = "3px solid red";
-
-  setTimeout(() => {
-    cell.style.outline = "";
-  }, 800);
 }
 
 loadLevels();
