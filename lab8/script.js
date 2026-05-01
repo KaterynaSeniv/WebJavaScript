@@ -3,47 +3,95 @@ const navMenu = document.getElementById('nav-menu');
 
 hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
+  
+    const spans = hamburger.querySelectorAll('span');
+    if (navMenu.classList.contains('active')) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+    } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+    }
 });
 
-const slide = document.getElementById('carousel-slide');
-const images = document.querySelectorAll('.carousel-slide img');
+const track = document.getElementById('carousel-track');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 const indicatorsContainer = document.getElementById('indicators');
 
-let counter = 0;
-const size = images[0].clientWidth;
+const slidesData = [
+    {
+        img: "https://picsum.photos/id/1015/1200/600",
+        alt: "Розкішні золоті персні з діамантами"
+    },
+    {
+        img: "https://picsum.photos/id/1060/1200/600",
+        alt: "Елегантна діамантова підвіска"
+    },
+    {
+        img: "https://picsum.photos/id/201/1200/600",
+        alt: "Золоті сережки з перлами"
+    },
+    {
+        img: "https://picsum.photos/id/133/1200/600",
+        alt: "Колекція ювелірних виробів"
+    }
+];
 
-images.forEach((_, idx) => {
-    const dot = document.createElement('span');
-    dot.classList.add('dot');
-    if (idx === 0) dot.classList.add('active');
-    dot.addEventListener('click', () => goToSlide(idx));
+let currentIndex = 0;
+
+slidesData.forEach(slide => {
+    const slideEl = document.createElement('div');
+    slideEl.className = 'carousel-slide';
+    slideEl.innerHTML = `<img src="${slide.img}" alt="${slide.alt}">`;
+    track.appendChild(slideEl);
+});
+
+slidesData.forEach((_, index) => {
+    const dot = document.createElement('div');
+    dot.className = `dot ${index === 0 ? 'active' : ''}`;
+    dot.addEventListener('click', () => goToSlide(index));
     indicatorsContainer.appendChild(dot);
 });
 
+const allDots = document.querySelectorAll('.dot');
+
 function updateIndicators() {
-    document.querySelectorAll('.dot').forEach((dot, idx) => {
-        dot.classList.toggle('active', idx === counter);
+    allDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
     });
 }
 
 function goToSlide(index) {
-    counter = index;
-    slide.style.transform = 'translateX(' + (-images[0].clientWidth * counter) + 'px)';
+    currentIndex = index;
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
     updateIndicators();
 }
 
 nextBtn.addEventListener('click', () => {
-    if (counter >= images.length - 1) counter = -1;
-    goToSlide(counter + 1);
+    currentIndex = (currentIndex + 1) % slidesData.length;
+    goToSlide(currentIndex);
 });
 
 prevBtn.addEventListener('click', () => {
-    if (counter <= 0) counter = images.length;
-    goToSlide(counter - 1);
+    currentIndex = (currentIndex - 1 + slidesData.length) % slidesData.length;
+    goToSlide(currentIndex);
 });
 
-setInterval(() => {
+let autoSlide = setInterval(() => {
     nextBtn.click();
 }, 5000);
+
+const carouselContainer = document.querySelector('.carousel-container');
+carouselContainer.addEventListener('mouseenter', () => clearInterval(autoSlide));
+carouselContainer.addEventListener('mouseleave', () => {
+    autoSlide = setInterval(() => nextBtn.click(), 5000);
+});
+
+document.querySelectorAll('.nav-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+    });
+});
