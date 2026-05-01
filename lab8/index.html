@@ -1,229 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timeless Radiance | AURUM</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURUM</title>
+
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Josefin+Sans:wght@300;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-    <div class="grain"></div>
+<header id="header">
+    <nav class="nav">
+        <div class="logo">✦ AURUM ✦</div>
 
-    <header id="header">
-        <nav class="nav-container">
-            <div class="logo">
-                <span class="logo-symbol">✦</span>
-                <span class="logo-text">AURUM</span>
-                <span class="logo-symbol">✦</span>
-            </div>
+        <ul class="menu" id="menu">
+            <li>Home</li>
+            <li>Catalog</li>
+            <li>Collections</li>
+            <li>About</li>
+        </ul>
 
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="#">Home</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">Catalog <span class="arrow">▾</span></a>
-                    <ul class="dropdown-content">
-                        <li><a href="#">Rings</a></li>
-                        <li><a href="#">Earrings</a></li>
-                        <li><a href="#">Necklaces</a></li>
-                        <li><a href="#">Bracelets</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Collections</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-
-            <button class="hamburger" id="hamburger" aria-label="Menu">
-                <span></span><span></span><span></span>
-            </button>
-        </nav>
-    </header>
-
-    <main>
-
-        <section class="carousel-section">
-            <div class="carousel-container" id="carousel-container">
-                <div class="carousel-track" id="carousel-track"></div>
-
-                <button class="carousel-btn prev" id="prevBtn" aria-label="Previous">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
-                </button>
-                <button class="carousel-btn next" id="nextBtn" aria-label="Next">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
-                </button>
-
-                <div class="indicators" id="indicators"></div>
-            </div>
-        </section>
-
-        <div class="marquee-strip">
-            <div class="marquee-track">
-                <span>Handcrafted</span><span class="sep">✦</span>
-                <span>18K Gold</span><span class="sep">✦</span>
-                <span>Timeless</span><span class="sep">✦</span>
-                <span>Exclusive</span><span class="sep">✦</span>
-                <span>Since 2018</span><span class="sep">✦</span>
-                <span>Handcrafted</span><span class="sep">✦</span>
-                <span>18K Gold</span><span class="sep">✦</span>
-                <span>Timeless</span><span class="sep">✦</span>
-                <span>Exclusive</span><span class="sep">✦</span>
-                <span>Since 2018</span><span class="sep">✦</span>
-                <span>Handcrafted</span><span class="sep">✦</span>
-                <span>18K Gold</span><span class="sep">✦</span>
-                <span>Timeless</span><span class="sep">✦</span>
-                <span>Exclusive</span><span class="sep">✦</span>
-                <span>Since 2018</span><span class="sep">✦</span>
-            </div>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
         </div>
+    </nav>
+</header>
 
-        <section class="collections-section large-only">
-            <div class="section-header">
-                <p class="label">Curated for you</p>
-                <h2>Our Collections</h2>
-                <div class="divider"><span></span><span class="diamond">◆</span><span></span></div>
-            </div>
-            <div class="collections-grid">
-                <div class="collection-card" data-index="0">
-                    <div class="card-img-wrap">
-                        <img src="images/large1.webp" alt="Golden Shine" loading="lazy">
-                    </div>
-                    <div class="card-overlay">
-                        <h3>Golden Shine</h3>
-                        <a href="#" class="card-link">Explore →</a>
-                    </div>
-                </div>
-                <div class="collection-card" data-index="1">
-                    <div class="card-img-wrap">
-                        <img src="images/larde2.webp" alt="Timeless Desire" loading="lazy">
-                    </div>
-                    <div class="card-overlay">
-                        <h3>Timeless Desire</h3>
-                        <a href="#" class="card-link">Explore →</a>
-                    </div>
-                </div>
-                <div class="collection-card" data-index="2">
-                    <div class="card-img-wrap">
-                        <img src="images/large3.jpg" alt="Elegant Moment" loading="lazy">
-                    </div>
-                    <div class="card-overlay">
-                        <h3>Elegant Moment</h3>
-                        <a href="#" class="card-link">Explore →</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+<section class="carousel">
+    <div class="track" id="track"></div>
 
-        <section class="medium-gallery medium-only">
-            <div class="section-header">
-                <p class="label">Curated for you</p>
-                <h2>Collections</h2>
-                <div class="divider"><span></span><span class="diamond">◆</span><span></span></div>
-            </div>
-            <div class="medium-grid">
-                <div class="medium-card">
-                    <img src="images/medium1.webp" alt="Collection 1" loading="lazy">
-                    <div class="medium-overlay"><h3>Delicate Bloom</h3></div>
-                </div>
-                <div class="medium-card">
-                    <img src="images/medium2.jpg" alt="Collection 2" loading="lazy">
-                    <div class="medium-overlay"><h3>Passionate Heart</h3></div>
-                </div>
-            </div>
-        </section>
+    <button class="btn prev" id="prev">‹</button>
+    <button class="btn next" id="next">›</button>
 
-        <section class="story-section">
-            <div class="story-grid">
-                <div class="story-image reveal">
-                    <img src="images/medium1.webp" alt="Delicate Bloom">
-                    <div class="story-img-deco"></div>
-                </div>
-                <div class="story-content reveal">
-                    <p class="label">Our Story</p>
-                    <h2>Established<br><em>in 2018</em></h2>
-                    <div class="divider left"><span></span><span class="diamond">◆</span><span></span></div>
-                    <p class="story-text">
-                        AURUM was founded with a deep passion for timeless elegance and masterful craftsmanship. 
-                        Each creation tells a story of dedication, precision, and beauty that transcends trends.
-                    </p>
-                    <a href="#" class="cta-button outline">Our Heritage</a>
-                </div>
-            </div>
-        </section>
+    <div class="dots" id="dots"></div>
+</section>
 
-        <div class="stats-band large-only">
-            <div class="stat">
-                <span class="stat-number">2018</span>
-                <span class="stat-label">Founded</span>
-            </div>
-            <div class="stat-sep">✦</div>
-            <div class="stat">
-                <span class="stat-number">1200+</span>
-                <span class="stat-label">Pieces Crafted</span>
-            </div>
-            <div class="stat-sep">✦</div>
-            <div class="stat">
-                <span class="stat-number">18K</span>
-                <span class="stat-label">Pure Gold</span>
-            </div>
-            <div class="stat-sep">✦</div>
-            <div class="stat">
-                <span class="stat-number">50+</span>
-                <span class="stat-label">Countries</span>
-            </div>
-        </div>
+<section class="collections large-only">
+    <h2>Collections</h2>
 
-        <section class="motivation-section reveal">
-            <div class="motivation-inner">
-                <div class="motivation-image">
-                    <img src="images/medium2.jpg" alt="Passionate Heart" loading="lazy">
-                </div>
-                <div class="motivation-content">
-                    <p class="label">Limited Edition</p>
-                    <h2>Feel<br><em>Extraordinary</em></h2>
-                    <div class="divider left"><span></span><span class="diamond">◆</span><span></span></div>
-                    <p>Each AURUM piece is more than jewelry — it's a symbol of your uniqueness, strength, and elegance. Worn by those who define their own standard of beauty.</p>
-                    <div class="btn-row">
-                        <a href="#" class="cta-button">Discover Collection</a>
-                        <a href="#" class="cta-button outline">Book Consultation</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <div class="grid">
+        <img src="images/large1.webp">
+        <img src="images/larde2.webp">
+        <img src="images/large3.jpg">
+    </div>
+</section>
 
-        <section class="newsletter-section">
-            <div class="newsletter-inner">
-                <p class="label">Exclusive Access</p>
-                <h2>Join the Inner Circle</h2>
-                <p class="newsletter-sub">Receive early access to new collections, private events and curated style notes.</p>
-                <div class="newsletter-form">
-                    <input type="email" placeholder="Your email address" class="email-input" />
-                    <button class="cta-button">Subscribe</button>
-                </div>
-            </div>
-        </section>
+<section class="medium medium-only">
+    <div class="grid">
+        <img src="images/medium1.webp">
+        <img src="images/medium2.jpg">
+    </div>
+</section>
 
-    </main>
-
-    <footer>
-        <div class="footer-inner">
-            <div class="footer-logo">
-                <span class="logo-symbol">✦</span>
-                <span class="logo-text">AURUM</span>
-                <span class="logo-symbol">✦</span>
-            </div>
-            <p class="footer-tagline">Timeless Radiance Since 2018</p>
-            <nav class="footer-nav">
-                <a href="#">Home</a>
-                <a href="#">Catalog</a>
-                <a href="#">Collections</a>
-                <a href="#">About</a>
-                <a href="#">Contact</a>
-            </nav>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
