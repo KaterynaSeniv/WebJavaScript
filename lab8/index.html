@@ -3,48 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jewelry | Lab 8</title>
+    <title>AURUM • Ювелірний Дім</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
         <nav class="nav-container">
             <div class="logo">AURUM</div>
-            <button class="hamburger" id="hamburger">
+            
+            <button class="hamburger" id="hamburger" aria-label="Меню">
                 <span></span><span></span><span></span>
             </button>
+            
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#">Персні</a></li>
                 <li><a href="#">Сережки</a></li>
                 <li><a href="#">Підвіски</a></li>
+                <li><a href="#">Браслети</a></li>
                 <li><a href="#">Колекції</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-
         <section class="carousel-container">
-            <div class="carousel-slide" id="carousel-slide">
-
-                <img src="https://placehold.co/1200x500/1a1a1a/d4af37?text=Premium+Rings" alt="Rings">
-                <img src="https://placehold.co/1200x500/1a1a1a/d4af37?text=Diamond+Necklace" alt="Necklace">
-                <img src="https://placehold.co/1200x500/1a1a1a/d4af37?text=Golden+Earrings" alt="Earrings">
+            <div class="carousel-track" id="carousel-track">
             </div>
-            <button class="prev" id="prevBtn">&#10094;</button>
-            <button class="next" id="nextBtn">&#10095;</button>
+            
+            <button class="carousel-btn prev" id="prevBtn" aria-label="Попередній слайд">‹</button>
+            <button class="carousel-btn next" id="nextBtn" aria-label="Наступний слайд">›</button>
+            
             <div class="indicators" id="indicators"></div>
         </section>
-
+        
         <section class="content-grid">
-            <div class="large-only">
-                <img src="https://placehold.co/400x300/222/d4af37?text=Desktop+Exclusive+1" alt="L1">
-                <img src="https://placehold.co/400x300/222/d4af37?text=Desktop+Exclusive+2" alt="L2">
+            <div class="large-only grid">
+                <div class="image-card">
+                    <img src="https://picsum.photos/id/1015/600/400" alt="Розкішні золоті персні">
+                    <p>Вічна класика</p>
+                </div>
+                <div class="image-card">
+                    <img src="https://picsum.photos/id/106/600/400" alt="Діамантові сережки">
+                    <p>Діамантова колекція</p>
+                </div>
+                <div class="image-card">
+                    <img src="https://picsum.photos/id/201/600/400" alt="Елегантні підвіски">
+                    <p>Тонка робота</p>
+                </div>
             </div>
-            <div class="medium-only">
-                <img src="https://placehold.co/300x200/333/d4af37?text=Mobile+Offer+1" alt="M1">
-                <img src="https://placehold.co/300x200/333/d4af37?text=Mobile+Offer+2" alt="M2">
+
+            <div class="medium-only grid">
+                <div class="image-card">
+                    <img src="https://picsum.photos/id/133/800/600" alt="Мобільна пропозиція 1">
+                    <p>Спеціальна пропозиція</p>
+                </div>
+                <div class="image-card">
+                    <img src="https://picsum.photos/id/180/800/600" alt="Мобільна пропозиція 2">
+                    <p>Новинки сезону</p>
+                </div>
             </div>
         </section>
     </main>
