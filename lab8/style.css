@@ -6,16 +6,16 @@
 
 body {
     font-family: 'Inter', system-ui, sans-serif;
-    background-color: #1f0f0f;
-    color: #f5e8e8;
+    background-color: #1a0f0f;
+    color: #f8f0eb;
 }
 
 header {
-    background: rgba(70, 15, 20, 0.98);
+    background: rgba(60, 12, 18, 0.98);
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 3px solid #b91c1c;
+    border-bottom: 3px solid #9f1f2e;
 }
 
 .nav-container {
@@ -29,27 +29,27 @@ header {
 
 .logo {
     font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
+    font-size: 2.55rem;
     font-weight: 700;
-    color: #f5c400;
+    color: #e8b923;           
     letter-spacing: 4px;
 }
 
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 2.5rem;
+    gap: 2.6rem;
 }
 
 .nav-menu a {
-    color: #f5e8e8;
+    color: #f8f0eb;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .nav-menu a:hover {
-    color: #f5c400;
+    color: #e8b923;
 }
 
 .hamburger {
@@ -65,7 +65,7 @@ header {
     display: block;
     width: 32px;
     height: 3.5px;
-    background: #f5c400;
+    background: #e8b923;
     transition: all 0.4s ease;
 }
 
@@ -75,48 +75,78 @@ header {
     margin: 2.5rem auto;
     overflow: hidden;
     border-radius: 20px;
-    box-shadow: 0 25px 60px rgba(185, 28, 28, 0.4);
+    box-shadow: 0 30px 70px rgba(159, 31, 46, 0.45);
 }
 
 .carousel-track {
     display: flex;
-    transition: transform 0.75s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.carousel-slide {
+    position: relative;
+    min-width: 100%;
+    height: 560px;
 }
 
 .carousel-slide img {
     width: 100%;
-    height: 560px;
+    height: 100%;
     object-fit: cover;
-    display: block;
+}
+
+.slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26, 15, 15, 0.88), rgba(60, 12, 18, 0.65) 40%, transparent 75%);
+    display: flex;
+    align-items: flex-end;
+    padding: 0 6%;
+    padding-bottom: 90px;
+}
+
+.slide-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.3rem;
+    font-weight: 700;
+    color: #f8f0eb;
+    margin-bottom: 0.6rem;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+}
+
+.slide-content p {
+    font-size: 1.35rem;
+    color: #e8d5c8;
+    font-weight: 400;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.7);
 }
 
 .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(70, 15, 20, 0.75);
-    color: #f5c400;
+    background: rgba(60, 12, 18, 0.8);
+    color: #e8b923;
     border: none;
-    width: 58px;
-    height: 58px;
-    font-size: 2.4rem;
-    line-height: 1;
+    width: 60px;
+    height: 60px;
+    font-size: 2.5rem;
     cursor: pointer;
     transition: all 0.3s;
     z-index: 10;
 }
 
 .carousel-btn:hover {
-    background: #b91c1c;
+    background: #9f1f2e;
     color: #fff;
 }
 
-.prev { left: 25px; }
-.next { right: 25px; }
+.prev { left: 30px; }
+.next { right: 30px; }
 
 .indicators {
     position: absolute;
-    bottom: 30px;
+    bottom: 35px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -127,15 +157,15 @@ header {
 .dot {
     width: 14px;
     height: 14px;
-    background: rgba(245, 232, 232, 0.45);
+    background: rgba(248, 240, 235, 0.4);
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
 }
 
 .dot.active {
-    background: #f5c400;
-    transform: scale(1.4);
+    background: #e8b923;
+    transform: scale(1.35);
 }
 
 .content-grid {
@@ -146,7 +176,7 @@ header {
 
 .grid {
     display: grid;
-    gap: 2rem;
+    gap: 2.2rem;
 }
 
 .large-only.grid {
@@ -154,15 +184,15 @@ header {
 }
 
 .image-card {
-    background: #2c1818;
+    background: #2b1818;
     border-radius: 18px;
     overflow: hidden;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: all 0.4s ease;
 }
 
 .image-card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 20px 45px rgba(185, 28, 28, 0.35);
+    transform: translateY(-14px);
+    box-shadow: 0 25px 50px rgba(159, 31, 46, 0.3);
 }
 
 .image-card img {
@@ -172,30 +202,26 @@ header {
 }
 
 .image-card p {
-    padding: 1.25rem;
+    padding: 1.3rem;
     text-align: center;
     font-family: 'Playfair Display', serif;
-    font-size: 1.35rem;
-    color: #f5c400;
-    font-weight: 500;
+    font-size: 1.32rem;
+    color: #e8b923;
 }
 
 @media (max-width: 767px) {
-    .hamburger {
-        display: flex;
-    }
+    .hamburger { display: flex; }
     
     .nav-menu {
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
-        background: #2c1818;
+        background: #2b1818;
         flex-direction: column;
         padding: 2rem 0;
         gap: 1.8rem;
-        text-align: center;
-        transform: translateY(-30px);
+        transform: translateY(-35px);
         opacity: 0;
         visibility: hidden;
         transition: all 0.5s ease;
@@ -208,10 +234,10 @@ header {
     }
     
     .large-only { display: none; }
+    .carousel-slide { height: 460px; }
     
-    .carousel-slide img {
-        height: 420px;
-    }
+    .slide-content h2 { font-size: 2.5rem; }
+    .slide-content p { font-size: 1.15rem; }
 }
 
 @media (min-width: 768px) {
