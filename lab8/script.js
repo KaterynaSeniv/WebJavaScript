@@ -1,18 +1,20 @@
+
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('nav-menu');
 
 hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
-  
+
     const spans = hamburger.querySelectorAll('span');
     if (navMenu.classList.contains('active')) {
-        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[0].style.transform = 'rotate(45deg) translate(7px, 7px)';
         spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+        spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
     } else {
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
+        spans.forEach(span => {
+            span.style.transform = 'none';
+            span.style.opacity = '1';
+        });
     }
 });
 
@@ -21,77 +23,52 @@ const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 const indicatorsContainer = document.getElementById('indicators');
 
-const slidesData = [
-    {
-        img: "https://picsum.photos/id/1015/1200/600",
-        alt: "Розкішні золоті персні з діамантами"
-    },
-    {
-        img: "https://picsum.photos/id/1060/1200/600",
-        alt: "Елегантна діамантова підвіска"
-    },
-    {
-        img: "https://picsum.photos/id/201/1200/600",
-        alt: "Золоті сережки з перлами"
-    },
-    {
-        img: "https://picsum.photos/id/133/1200/600",
-        alt: "Колекція ювелірних виробів"
-    }
+const slides = [
+    "images/slide1.jpg",
+    "images/slide2.jpg",
+    "images/slide3.webp",
+    "images/slide4.jpg"
 ];
 
-let currentIndex = 0;
+let current = 0;
 
-slidesData.forEach(slide => {
-    const slideEl = document.createElement('div');
-    slideEl.className = 'carousel-slide';
-    slideEl.innerHTML = `<img src="${slide.img}" alt="${slide.alt}">`;
-    track.appendChild(slideEl);
+slides.forEach(src => {
+    const div = document.createElement('div');
+    div.className = 'carousel-slide';
+    div.innerHTML = `<img src="${src}" alt="Timeless Radiance">`;
+    track.appendChild(div);
 });
 
-slidesData.forEach((_, index) => {
+slides.forEach((_, i) => {
     const dot = document.createElement('div');
-    dot.className = `dot ${index === 0 ? 'active' : ''}`;
-    dot.addEventListener('click', () => goToSlide(index));
+    dot.className = `dot ${i === 0 ? 'active' : ''}`;
+    dot.addEventListener('click', () => goToSlide(i));
     indicatorsContainer.appendChild(dot);
 });
 
 const allDots = document.querySelectorAll('.dot');
 
-function updateIndicators() {
-    allDots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentIndex);
-    });
-}
-
 function goToSlide(index) {
-    currentIndex = index;
-    track.style.transform = `translateX(-${currentIndex * 100}%)`;
-    updateIndicators();
+    current = index;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    allDots.forEach((dot, i) => dot.classList.toggle('active', i === current));
 }
 
 nextBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % slidesData.length;
-    goToSlide(currentIndex);
+    current = (current + 1) % slides.length;
+    goToSlide(current);
 });
 
 prevBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + slidesData.length) % slidesData.length;
-    goToSlide(currentIndex);
+    current = (current - 1 + slides.length) % slides.length;
+    goToSlide(current);
 });
 
-let autoSlide = setInterval(() => {
+let interval = setInterval(() => {
     nextBtn.click();
-}, 5000);
+}, 5200);
 
-const carouselContainer = document.querySelector('.carousel-container');
-carouselContainer.addEventListener('mouseenter', () => clearInterval(autoSlide));
-carouselContainer.addEventListener('mouseleave', () => {
-    autoSlide = setInterval(() => nextBtn.click(), 5000);
-});
-
-document.querySelectorAll('.nav-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-    });
+document.querySelector('.carousel-container').addEventListener('mouseenter', () => clearInterval(interval));
+document.querySelector('.carousel-container').addEventListener('mouseleave', () => {
+    interval = setInterval(() => nextBtn.click(), 5200);
 });
