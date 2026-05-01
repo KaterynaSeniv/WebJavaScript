@@ -291,4 +291,40 @@ header {
         background: #2b1818;
         flex-direction: column;
         padding: 2rem 0;
-        gap: 1.8rem
+        gap: 1.8rem;
+        text-align: center;
+        transform: translateY(-35px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.5s ease;
+    }
+    
+    .nav-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .large-only { display: none; }
+    
+    .carousel-slide { height: 460px; }
+    .slide-content h2 { font-size: 2.5rem; }
+    .slide-content p { font-size: 1.15rem; }
+    
+    .collections-grid {
+        grid-template-columns: 1fr;
+        gap: 1.8rem;
+    }
+    
+    .collection-card {
+        height: 340px;
+    }
+}
+
+@media (min-width: 768px) {
+    .medium-only { display: none; }
+    
+    .collections-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
