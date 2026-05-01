@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,15 +12,25 @@
     <header>
         <nav class="nav-container">
             <div class="logo">AURUM</div>
-            <button class="hamburger" id="hamburger" aria-label="Меню">
+            
+            <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span></span><span></span><span></span>
             </button>
+            
             <ul class="nav-menu" id="nav-menu">
+                <li><a href="#">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Catalog</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#">Rings</a></li>
+                        <li><a href="#">Earrings</a></li>
+                        <li><a href="#">Necklaces</a></li>
+                        <li><a href="#">Bracelets</a></li>
+                    </ul>
+                </li>
                 <li><a href="#">Collections</a></li>
-                <li><a href="#">Rings</a></li>
-                <li><a href="#">Earrings</a></li>
-                <li><a href="#">Suspensions</a></li>
-                <li><a href="#">Bracelets</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -35,10 +45,9 @@
 
         <section class="collections-section">
             <div class="section-header">
-                <h2>Timeless Radiance</h2>
-                <p class="subtitle">What makes you special, no matter the day, every minute</p>
+                <h2>Our Collections</h2>
+                <p class="subtitle">Timeless pieces for every moment</p>
             </div>
-            
             <div class="collections-grid">
                 <div class="collection-card">
                     <img src="images/large1.webp" alt="Golden Shine">
@@ -61,15 +70,30 @@
             </div>
         </section>
 
-        <section class="content-grid">
-            <div class="medium-only grid">
-                <div class="image-card">
+        <section class="story-section">
+            <div class="story-grid">
+                <div class="story-image">
                     <img src="images/medium1.webp" alt="Delicate Bloom">
-                    <p>Delicate Bloom</p>
                 </div>
-                <div class="image-card">
+                <div class="story-content">
+                    <h2>Established in 2018</h2>
+                    <p class="story-text">
+                        AURUM was founded with a deep passion for timeless elegance and masterful craftsmanship. 
+                        Each creation tells a story of dedication, precision, and beauty that transcends trends.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="motivation-section">
+            <div class="motivation-grid">
+                <div class="motivation-image">
                     <img src="images/medium2.jpg" alt="Passionate Heart">
-                    <p>Passionate Heart</p>
+                </div>
+                <div class="motivation-content">
+                    <h2>Feel Extraordinary</h2>
+                    <p>Discover jewelry that celebrates your individuality and becomes part of your legacy.</p>
+                    <a href="#" class="cta-button">Explore the Collection</a>
                 </div>
             </div>
         </section>
