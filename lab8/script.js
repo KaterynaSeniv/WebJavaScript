@@ -4,17 +4,13 @@ const navMenu = document.getElementById('nav-menu');
 
 hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
-
     const spans = hamburger.querySelectorAll('span');
     if (navMenu.classList.contains('active')) {
         spans[0].style.transform = 'rotate(45deg) translate(7px, 7px)';
         spans[1].style.opacity = '0';
         spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
     } else {
-        spans.forEach(span => {
-            span.style.transform = 'none';
-            span.style.opacity = '1';
-        });
+        spans.forEach(s => { s.style.transform = 'none'; s.style.opacity = '1'; });
     }
 });
 
@@ -23,23 +19,47 @@ const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 const indicatorsContainer = document.getElementById('indicators');
 
-const slides = [
-    "images/slide1.jpg",
-    "images/slide2.jpg",
-    "images/slide3.webp",
-    "images/slide4.jpg"
+const slidesData = [
+    {
+        img: "images/slide1.jpg",
+        title: "Timeless Radiance",
+        subtitle: "The Pinnacle of High-End Craftsmanship"
+    },
+    {
+        img: "images/slide2.jpg",
+        title: "Golden Perfection",
+        subtitle: "Premium Gold & Exquisite Diamonds"
+    },
+    {
+        img: "images/slide3.webp",
+        title: "Lustrous Pearls",
+        subtitle: "Elegance Under Golden Hour Light"
+    },
+    {
+        img: "images/slide4.jpg",
+        title: "Signature Collection",
+        subtitle: "Masterpieces in Diamond & Gold"
+    }
 ];
 
-let current = 0;
+let currentIndex = 0;
 
-slides.forEach(src => {
-    const div = document.createElement('div');
-    div.className = 'carousel-slide';
-    div.innerHTML = `<img src="${src}" alt="Timeless Radiance">`;
-    track.appendChild(div);
+slidesData.forEach(slide => {
+    const slideDiv = document.createElement('div');
+    slideDiv.className = 'carousel-slide';
+    slideDiv.innerHTML = `
+        <img src="${slide.img}" alt="${slide.title}">
+        <div class="slide-overlay">
+            <div class="slide-content">
+                <h2>${slide.title}</h2>
+                <p>${slide.subtitle}</p>
+            </div>
+        </div>
+    `;
+    track.appendChild(slideDiv);
 });
 
-slides.forEach((_, i) => {
+slidesData.forEach((_, i) => {
     const dot = document.createElement('div');
     dot.className = `dot ${i === 0 ? 'active' : ''}`;
     dot.addEventListener('click', () => goToSlide(i));
@@ -49,26 +69,25 @@ slides.forEach((_, i) => {
 const allDots = document.querySelectorAll('.dot');
 
 function goToSlide(index) {
-    current = index;
-    track.style.transform = `translateX(-${current * 100}%)`;
-    allDots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+    currentIndex = index;
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    allDots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
 }
 
 nextBtn.addEventListener('click', () => {
-    current = (current + 1) % slides.length;
-    goToSlide(current);
+    currentIndex = (currentIndex + 1) % slidesData.length;
+    goToSlide(currentIndex);
 });
 
 prevBtn.addEventListener('click', () => {
-    current = (current - 1 + slides.length) % slides.length;
-    goToSlide(current);
+    currentIndex = (currentIndex - 1 + slidesData.length) % slidesData.length;
+    goToSlide(currentIndex);
 });
 
-let interval = setInterval(() => {
-    nextBtn.click();
-}, 5200);
+let autoSlide = setInterval(() => nextBtn.click(), 5500);
 
-document.querySelector('.carousel-container').addEventListener('mouseenter', () => clearInterval(interval));
-document.querySelector('.carousel-container').addEventListener('mouseleave', () => {
-    interval = setInterval(() => nextBtn.click(), 5200);
+const carouselContainer = document.querySelector('.carousel-container');
+carouselContainer.addEventListener('mouseenter', () => clearInterval(autoSlide));
+carouselContainer.addEventListener('mouseleave', () => {
+    autoSlide = setInterval(() => nextBtn.click(), 5500);
 });
