@@ -1,21 +1,40 @@
 const hamburger = document.getElementById('hamburger');
 const menu = document.getElementById('menu');
 
-hamburger.onclick = () => {
-    menu.classList.toggle('active');
+const overlay = document.createElement('div');
+overlay.className = 'overlay';
+document.body.appendChild(overlay);
+
+function openMenu(){
+    menu.classList.add('active');
+    overlay.classList.add('active');
+    document.body.style.overflow='hidden';
+}
+
+function closeMenu(){
+    menu.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.style.overflow='';
+}
+
+hamburger.onclick=()=>{
+    menu.classList.contains('active') ? closeMenu() : openMenu();
 };
 
-const track = document.getElementById('track');
-const dotsContainer = document.getElementById('dots');
+overlay.onclick=closeMenu;
 
-const slides = [
+
+const track=document.getElementById('track');
+const dotsContainer=document.getElementById('dots');
+
+const slides=[
     'images/slide1.jpg',
     'images/slide2.jpg',
     'images/slide3.webp',
     'images/slide4.jpg'
 ];
 
-let current = 0;
+let current=0;
 
 slides.forEach((src,i)=>{
     const slide=document.createElement('div');
@@ -49,3 +68,5 @@ document.getElementById('next').onclick=next;
 document.getElementById('prev').onclick=prev;
 
 setInterval(next,5000);
+
+goTo(0);
