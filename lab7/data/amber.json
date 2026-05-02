@@ -4,27 +4,31 @@
     "name": "Amber Ring",
     "shortname": "ring",
     "description": "Кільце з бурштином",
-    "price": "$120"
+    "price": "$120",
+    "image": "images/amberRing.jpg"
   },
   {
     "id": 2,
     "name": "Amber Bracelet",
     "shortname": "bracelet",
     "description": "Браслет з бурштину",
-    "price": "$130"
+    "price": "$130",
+    "image": "images/amberBracelet.jpg"
   },
   {
     "id": 3,
     "name": "Amber Necklace",
     "shortname": "necklace",
     "description": "Намисто з бурштину",
-    "price": "$170"
+    "price": "$170",
+    "image": "images/amberNecklace.jpg"
   },
   {
     "id": 4,
     "name": "Amber Earrings",
     "shortname": "earrings",
     "description": "Сережки з бурштином",
-    "price": "$100"
+    "price": "$100",
+    "image": "images/amberEarrings.jpg"
   }
 ]
