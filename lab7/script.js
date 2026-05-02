@@ -19,9 +19,9 @@ function loadHome(force = false) {
     currentPage = "home";
     setActiveButton("homeBtn");
     document.getElementById("content").innerHTML = `
-        <div class="welcome">
+        <div class="welcome" style="text-align:center">
             <h2>Ласкаво просимо 💎</h2>
-            <p>Оберіть свою ідеальну прикрасу з натурального каміння</p>
+            <p>Вишукані прикраси з натурального каміння</p>
             <button class="back-btn" onclick="loadCatalog()">Відкрити каталог</button>
         </div>
     `;
@@ -33,18 +33,22 @@ function loadCatalog() {
     fetch('data/categories.json')
         .then(res => res.json())
         .then(data => {
-            let html = "<h2>Наші категорії</h2>";
+            let html = "<h2 style='text-align:center'>Наші категорії</h2>";
+            html += '<div class="grid-container">';
             data.forEach(cat => {
-                const previewImg = `images/${cat.shortname}Necklace.jpg`;
+                let fileName = `${cat.shortname}Necklace.jpg`;
+                if (cat.shortname === "turquoise") fileName = "turquoseNecklace.jpg";
+
                 html += `
                     <div class="category">
-                        <img src="${previewImg}" onerror="this.src='https://placehold.co/300x300?text=${cat.name}'">
+                        <img src="images/${fileName}" onerror="this.src='https://placehold.co/300x300?text=${cat.name}'">
                         <h3>${cat.name}</h3>
                         <p>${cat.notes}</p>
-                        <button class="back-btn" onclick="loadCategory('${cat.shortname}', '${cat.name}')">Переглянути</button>
+                        <button class="back-btn" style="width:100%" onclick="loadCategory('${cat.shortname}', '${cat.name}')">Відкрити</button>
                     </div>
                 `;
             });
+            html += '</div>';
             document.getElementById("content").innerHTML = html;
         });
 }
@@ -55,18 +59,20 @@ function loadCategory(shortname, name) {
     fetch(`data/${shortname}.json`)
         .then(res => res.json())
         .then(data => {
-            let html = `<h2>Колекція: ${name}</h2><div style="display: flex; flex-wrap: wrap; justify-content: center;">`;
+            let html = `<h2 style='text-align:center'>Колекція: ${name}</h2>`;
+            html += '<div class="grid-container">';
             data.forEach(item => {
                 html += `
                     <div class="item">
-                        <img src="${item.image}" alt="${item.name}" onerror="this.src='https://placehold.co/300x300?text=Помилка+фото'">
+                        <img src="${item.image}" onerror="this.src='https://placehold.co/300x300?text=No+Photo'">
                         <h3>${item.name}</h3>
                         <p>${item.description}</p>
                         <span class="price">${item.price}</span>
                     </div>
                 `;
             });
-            html += `</div><br><button class="back-btn" onclick="loadCatalog()">← Назад до категорій</button>`;
+            html += '</div>';
+            html += `<div style="text-align:center"><button class="back-btn" onclick="loadCatalog()">← Назад</button></div>`;
             document.getElementById("content").innerHTML = html;
         });
 }
@@ -85,25 +91,25 @@ function generateSpecials() {
             Promise.all(promises).then(allData => {
                 let allItems = [];
                 allData.forEach((items) => {
-                    items.forEach(item => {
-                        allItems.push(item);
-                    });
+                    items.forEach(item => allItems.push(item));
                 });
 
                 let selected = allItems.sort(() => 0.5 - Math.random()).slice(0, 4);
-                let html = `<h2>Спеціальні пропозиції</h2>`;
                 
+                let html = `<h2 style='text-align:center'>Specials</h2>`;
+                html += '<div class="grid-container">';
                 selected.forEach(item => {
                     html += `
                         <div class="item">
-                            <img src="${item.image}" alt="${item.name}" onerror="this.src='https://placehold.co/300x300?text=No+Photo'">
+                            <img src="${item.image}" alt="${item.name}">
                             <h3>${item.name}</h3>
                             <p>${item.description}</p>
                             <span class="price">${item.price}</span>
                         </div>
                     `;
                 });
-                html += `<br><button class="back-btn" onclick="generateSpecials()">🔄 Оновити вибір</button>`;
+                html += '</div>';
+                html += `<div style="text-align:center"><button class="back-btn" onclick="generateSpecials()">🔄 Оновити</button></div>`;
                 document.getElementById("content").innerHTML = html;
             });
         });
