@@ -21,8 +21,8 @@ function loadHome(force = false) {
     document.getElementById("content").innerHTML = `
         <div class="welcome">
             <h2>Ласкаво просимо 💎</h2>
-            <p>Вишукані прикраси з натурального каміння</p>
-            <button class="back-btn" onclick="loadCatalog()">Перейти до каталогу</button>
+            <p>Обери свій ідеальний камінь та прикрасу</p>
+            <button class="back-btn" onclick="loadCatalog()">Переглянути каталог</button>
         </div>
     `;
 }
@@ -33,14 +33,18 @@ function loadCatalog() {
     fetch('data/categories.json')
         .then(res => res.json())
         .then(data => {
-            let html = "<h2>Категорії</h2>";
+            let html = "<h2>Наші колекції</h2>";
             data.forEach(cat => {
+                // Використовуємо картинку намиста як прев'ю категорії
+                const previewImg = `images/${cat.shortname}Necklace.jpg`;
                 html += `
                     <div class="category">
-                        <img src="images/${cat.shortname}Necklace.jpg" onerror="this.src='https://placehold.co/300x300?text=${cat.name}'">
+                        <img src="${previewImg}" onerror="this.src='https://placehold.co/300x300?text=${cat.name}'">
                         <h3>${cat.name}</h3>
                         <p>${cat.notes}</p>
-                        <button class="back-btn" onclick="loadCategory('${cat.shortname}', '${cat.name}')">Відкрити</button>
+                        <button class="back-btn" style="margin-top:10px" onclick="loadCategory('${cat.shortname}', '${cat.name}')">
+                            Відкрити
+                        </button>
                     </div>
                 `;
             });
@@ -56,17 +60,16 @@ function loadCategory(shortname, name) {
         .then(data => {
             let html = `<h2>${name}</h2>`;
             data.forEach(item => {
-                const imgName = item.shortname.charAt(0).toUpperCase() + item.shortname.slice(1);
                 html += `
                     <div class="item">
-                        <img src="images/${shortname}${imgName}.jpg" onerror="this.src='https://placehold.co/300x300?text=${item.name}'">
+                        <img src="${item.image}" onerror="this.src='https://placehold.co/300x300?text=Jewelry'">
                         <h3>${item.name}</h3>
                         <p>${item.description}</p>
-                        <span class="price">${item.price}</span>
+                        <p class="price">${item.price}</p>
                     </div>
                 `;
             });
-            html += `<br><button class="back-btn" onclick="loadCatalog()">Назад до каталогу</button>`;
+            html += `<br><button class="back-btn" onclick="loadCatalog()">← Назад до категорій</button>`;
             document.getElementById("content").innerHTML = html;
         });
 }
@@ -84,25 +87,26 @@ function generateSpecials() {
             let promises = categories.map(cat => fetch(`data/${cat.shortname}.json`).then(res => res.json()));
             Promise.all(promises).then(allData => {
                 let allItems = [];
-                allData.forEach((items, index) => {
+                allData.forEach((items) => {
                     items.forEach(item => {
-                        allItems.push({ ...item, categoryFolder: categories[index].shortname });
+                        allItems.push(item);
                     });
                 });
+
                 let selected = allItems.sort(() => 0.5 - Math.random()).slice(0, 4);
-                let html = `<h2>Specials</h2>`;
+                let html = `<h2>Specials</h2><p style="color:#94a3b8">Випадковий вибір для вас</p>`;
+                
                 selected.forEach(item => {
-                    const imgName = item.shortname.charAt(0).toUpperCase() + item.shortname.slice(1);
                     html += `
                         <div class="item">
-                            <img src="images/${item.categoryFolder}${imgName}.jpg">
+                            <img src="${item.image}" alt="${item.name}">
                             <h3>${item.name}</h3>
                             <p>${item.description}</p>
-                            <span class="price">${item.price}</span>
+                            <p class="price">${item.price}</p>
                         </div>
                     `;
                 });
-                html += `<br><button class="back-btn" onclick="generateSpecials()">🔄 Оновити</button>`;
+                html += `<br><button class="back-btn" onclick="generateSpecials()">🔄 Перегенерувати</button>`;
                 document.getElementById("content").innerHTML = html;
             });
         });
