@@ -37,13 +37,11 @@ function loadCatalog() {
             let html = "<h2 style='text-align:center'>Наші категорії</h2>";
             html += '<div class="grid-container">';
             
-            // Створюємо масив запитів до кожного JSON файлу категорії, щоб взяти звідти картинку
             let promises = categories.map(cat => 
                 fetch(`data/${cat.shortname}.json`)
                     .then(res => res.json())
                     .then(items => ({
                         ...cat,
-                        // Беремо картинку ПЕРШОГО товару з цієї категорії для обкладинки
                         previewImg: items[0].image 
                     }))
             );
