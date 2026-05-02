@@ -30,26 +30,38 @@ function loadHome(force = false) {
 function loadCatalog() {
     currentPage = "catalog";
     setActiveButton("catalogBtn");
+    
     fetch('data/categories.json')
         .then(res => res.json())
-        .then(data => {
+        .then(categories => {
             let html = "<h2 style='text-align:center'>Наші категорії</h2>";
             html += '<div class="grid-container">';
-            data.forEach(cat => {
-                let fileName = `${cat.shortname}Necklace.jpg`;
-                if (cat.shortname === "turquoise") fileName = "turquoseNecklace.jpg";
+            
+            // Створюємо масив запитів до кожного JSON файлу категорії, щоб взяти звідти картинку
+            let promises = categories.map(cat => 
+                fetch(`data/${cat.shortname}.json`)
+                    .then(res => res.json())
+                    .then(items => ({
+                        ...cat,
+                        // Беремо картинку ПЕРШОГО товару з цієї категорії для обкладинки
+                        previewImg: items[0].image 
+                    }))
+            );
 
-                html += `
-                    <div class="category">
-                        <img src="images/${fileName}" onerror="this.src='https://placehold.co/300x300?text=${cat.name}'">
-                        <h3>${cat.name}</h3>
-                        <p>${cat.notes}</p>
-                        <button class="back-btn" style="width:100%" onclick="loadCategory('${cat.shortname}', '${cat.name}')">Відкрити</button>
-                    </div>
-                `;
+            Promise.all(promises).then(completedCategories => {
+                completedCategories.forEach(cat => {
+                    html += `
+                        <div class="category">
+                            <img src="${cat.previewImg}" onerror="this.src='https://placehold.co/300x300?text=${cat.name}'">
+                            <h3>${cat.name}</h3>
+                            <p>${cat.notes}</p>
+                            <button class="back-btn" style="width:100%" onclick="loadCategory('${cat.shortname}', '${cat.name}')">Відкрити</button>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                document.getElementById("content").innerHTML = html;
             });
-            html += '</div>';
-            document.getElementById("content").innerHTML = html;
         });
 }
 
@@ -101,7 +113,7 @@ function generateSpecials() {
                 selected.forEach(item => {
                     html += `
                         <div class="item">
-                            <img src="${item.image}" alt="${item.name}">
+                            <img src="${item.image}" alt="${item.name}" onerror="this.src='https://placehold.co/300x300?text=Error'">
                             <h3>${item.name}</h3>
                             <p>${item.description}</p>
                             <span class="price">${item.price}</span>
