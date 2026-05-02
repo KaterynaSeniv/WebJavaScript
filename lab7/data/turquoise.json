@@ -5,7 +5,7 @@
     "shortname": "ring",
     "description": "Кільце з бірюзою",
     "price": "$110",
-    "image": "images/turquoiseRing.jpg"
+    "image": "images/turquoseRing.jpg"
   },
   {
     "id": 2,
@@ -21,7 +21,7 @@
     "shortname": "bracelet",
     "description": "Браслет з натурального каміння",
     "price": "$95",
-    "image": "images/turquoiseBracelet.jpg"
+    "image": "images/turquoseBracelet.jpg"
   },
   {
     "id": 4,
