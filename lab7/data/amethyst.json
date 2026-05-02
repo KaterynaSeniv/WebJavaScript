@@ -4,27 +4,31 @@
     "name": "Amethyst Ring",
     "shortname": "ring",
     "description": "Кільце з натуральним аметистом",
-    "price": "$140"
+    "price": "$140",
+    "image": "images/amethystRing.jpg"
   },
   {
     "id": 2,
     "name": "Amethyst Necklace",
     "shortname": "necklace",
     "description": "Намисто з аметистом",
-    "price": "$180"
+    "price": "$180",
+    "image": "images/amethystNecklace.jpg"
   },
   {
     "id": 3,
     "name": "Amethyst Bracelet",
     "shortname": "bracelet",
     "description": "Браслет ручної роботи",
-    "price": "$120"
+    "price": "$120",
+    "image": "images/amethystBracelet.jpg"
   },
   {
     "id": 4,
     "name": "Amethyst Earrings",
     "shortname": "earrings",
     "description": "Сережки з аметистом",
-    "price": "$90"
+    "price": "$90",
+    "image": "images/amethystEarrings.jpg"
   }
 ]
