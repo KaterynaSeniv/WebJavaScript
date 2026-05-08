@@ -71,3 +71,32 @@ document.getElementById('prev').onclick = prev;
 setInterval(next, 5000);
 
 goTo(0);
+
+function loadCatalog() {
+    const grid = document.getElementById('catalog-grid');
+    if (!grid) return; 
+
+    const products = [
+        { name: "Eternal Band", price: "Gold / Diamond", img: "images/1.jpg" },
+        { name: "Lumina Pendant", price: "White Gold", img: "images/2.jpg" },
+        { name: "Solaris Drops", price: "Rose Gold", img: "images/3.jpg" },
+        { name: "Luna Bracelet", price: "Silver / Pearl", img: "images/4.jpg" },
+        { name: "Aurelia Ring", price: "Pure Gold", img: "images/5.jpg" },
+        { name: "Velvet Necklace", price: "Emerald", img: "images/6.jpg" }
+    ];
+
+    products.forEach(product => {
+        const item = document.createElement('div');
+        item.className = 'product-card';
+        item.innerHTML = `
+            <div class="img-wrapper">
+                <img src="${product.img}" alt="${product.name}">
+            </div>
+            <h3>${product.name}</h3>
+            <p>${product.price}</p>
+        `;
+        grid.appendChild(item);
+    });
+}
+
+window.addEventListener('DOMContentLoaded', loadCatalog);
