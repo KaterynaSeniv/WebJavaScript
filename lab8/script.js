@@ -77,10 +77,10 @@ function loadCatalog() {
     if (!grid) return; 
 
     const products = [
-        { name: "Eternal Band", price: "Gold / Diamond", img: "images/1.jpg" },
+        { name: "Eternal Band", price: "Gold / Diamond", img: "images/1.webp" },
         { name: "Lumina Pendant", price: "White Gold", img: "images/2.jpg" },
         { name: "Solaris Drops", price: "Rose Gold", img: "images/3.jpg" },
-        { name: "Luna Bracelet", price: "Silver / Pearl", img: "images/4.jpg" },
+        { name: "Luna Bracelet", price: "Silver / Pearl", img: "images/4.webp" },
         { name: "Aurelia Ring", price: "Pure Gold", img: "images/5.jpg" },
         { name: "Velvet Necklace", price: "Emerald", img: "images/6.jpg" }
     ];
