@@ -21,7 +21,7 @@ const track = document.getElementById('track');
 const dotsContainer = document.getElementById('dots');
 
 if (track && dotsContainer) {
-    const slides = [
+    const slidesArr = [
         'images/slide1.png',
         'images/slide2.png',
         'images/slide3.png',
@@ -30,7 +30,7 @@ if (track && dotsContainer) {
 
     let current = 0;
 
-    slides.forEach((src, i) => {
+    slidesArr.forEach((src, i) => {
         const slide = document.createElement('div');
         slide.className = 'slide';
         slide.innerHTML = `<img src="${src}" alt="Slide ${i + 1}">`;
@@ -43,21 +43,24 @@ if (track && dotsContainer) {
     });
 
     function goTo(i) {
-        track.style.transform = `translateX(-${i * 100}%)`;
+        const allSlides = document.querySelectorAll('.slide');
+        const allDots = document.querySelectorAll('.dot');
+
+        allSlides.forEach(s => s.classList.remove('active'));
+        allDots.forEach(d => d.classList.remove('active'));
+
+        allSlides[i].classList.add('active');
+        allDots[i].classList.add('active');
+        
         current = i;
-        document.querySelectorAll('.dot').forEach((d, index) => {
-            d.classList.toggle('active', index === i);
-        });
     }
 
     const nextBtn = document.getElementById('next');
     const prevBtn = document.getElementById('prev');
 
-    if (nextBtn) nextBtn.onclick = () => goTo((current + 1) % slides.length);
-    if (prevBtn) prevBtn.onclick = () => goTo((current - 1 + slides.length) % slides.length);
+    if (nextBtn) nextBtn.onclick = () => goTo((current + 1) % slidesArr.length);
+    if (prevBtn) prevBtn.onclick = () => goTo((current - 1 + slidesArr.length) % slidesArr.length);
 
-    setInterval(() => goTo((current + 1) % slides.length), 5000);
-    
     goTo(0);
 }
 
