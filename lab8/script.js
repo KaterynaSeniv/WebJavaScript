@@ -17,6 +17,37 @@ if (hamburger && menu) {
     overlay.onclick = toggleMenu;
 }
 
+
+const slides = [
+    'images/slide1.jpg',
+    'images/slide2.jpg',
+    'images/slide3.jpg',
+    'images/slide4.jpg'
+];
+
+let current = 0;
+
+slides.forEach((src, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'slide';
+    slide.innerHTML = `<img src="${src}">`;
+    track.appendChild(slide);
+
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.onclick = () => goTo(i);
+    dotsContainer.appendChild(dot);
+});
+
+function goTo(i){
+    track.style.transform = `translateX(-${i * 100}%)`;
+    current = i;
+
+    document.querySelectorAll('.dot').forEach((d, index) => {
+        d.classList.toggle('active', index === i);
+    });
+}
+
 function loadCatalog() {
     const grid = document.getElementById('catalog-grid');
     if (!grid) return; 
