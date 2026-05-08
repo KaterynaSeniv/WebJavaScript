@@ -252,3 +252,85 @@ header {
     
     .overlay.active { display: block; }
 }
+
+.catalog-hero {
+    padding: 160px 5% 60px;
+    text-align: center;
+    background: #0a0a0a;
+}
+
+.catalog-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.catalog-hero p {
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.8rem;
+}
+
+.catalog-filter {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 50px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+}
+
+.catalog-filter span {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.catalog-filter span:hover {
+    color: #d4af37;
+}
+
+.product-card {
+    text-align: center;
+    margin-bottom: 40px;
+    transition: 0.4s;
+}
+
+.img-wrapper {
+    overflow: hidden;
+    margin-bottom: 20px;
+    background: #161616;
+}
+
+.product-card img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    transition: 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.product-card:hover img {
+    transform: scale(1.05);
+}
+
+.product-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.product-card p {
+    color: #888;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
