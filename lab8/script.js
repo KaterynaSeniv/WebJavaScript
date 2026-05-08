@@ -31,7 +31,7 @@ const dotsContainer = document.getElementById('dots');
 const slides = [
     'images/slide1.jpg',
     'images/slide2.jpg',
-    'images/slide3.webp',
+    'images/slide3.jpg',
     'images/slide4.jpg'
 ];
 
