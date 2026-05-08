@@ -17,35 +17,48 @@ if (hamburger && menu) {
     overlay.onclick = toggleMenu;
 }
 
+const track = document.getElementById('track');
+const dotsContainer = document.getElementById('dots');
 
-const slides = [
-    'images/slide1.jpg',
-    'images/slide2.jpg',
-    'images/slide3.jpg',
-    'images/slide4.jpg'
-];
+if (track && dotsContainer) {
+    const slides = [
+        'images/slide1.jpg',
+        'images/slide2.jpg',
+        'images/slide3.jpg',
+        'images/slide4.jpg'
+    ];
 
-let current = 0;
+    let current = 0;
 
-slides.forEach((src, i) => {
-    const slide = document.createElement('div');
-    slide.className = 'slide';
-    slide.innerHTML = `<img src="${src}">`;
-    track.appendChild(slide);
+    slides.forEach((src, i) => {
+        const slide = document.createElement('div');
+        slide.className = 'slide';
+        slide.innerHTML = `<img src="${src}" alt="Slide ${i + 1}">`;
+        track.appendChild(slide);
 
-    const dot = document.createElement('div');
-    dot.className = 'dot';
-    dot.onclick = () => goTo(i);
-    dotsContainer.appendChild(dot);
-});
-
-function goTo(i){
-    track.style.transform = `translateX(-${i * 100}%)`;
-    current = i;
-
-    document.querySelectorAll('.dot').forEach((d, index) => {
-        d.classList.toggle('active', index === i);
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        dot.onclick = () => goTo(i);
+        dotsContainer.appendChild(dot);
     });
+
+    function goTo(i) {
+        track.style.transform = `translateX(-${i * 100}%)`;
+        current = i;
+        document.querySelectorAll('.dot').forEach((d, index) => {
+            d.classList.toggle('active', index === i);
+        });
+    }
+
+    const nextBtn = document.getElementById('next');
+    const prevBtn = document.getElementById('prev');
+
+    if (nextBtn) nextBtn.onclick = () => goTo((current + 1) % slides.length);
+    if (prevBtn) prevBtn.onclick = () => goTo((current - 1 + slides.length) % slides.length);
+
+    setInterval(() => goTo((current + 1) % slides.length), 5000);
+    
+    goTo(0);
 }
 
 function loadCatalog() {
