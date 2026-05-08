@@ -1,78 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURUM | Fine Jewelry</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Josefin+Sans:wght@300;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURUM</title>
+
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Josefin+Sans:wght@300;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
 <header>
     <div class="nav">
         <div class="logo">✦ AURUM ✦</div>
+
         <ul class="menu" id="menu">
             <li>Home</li>
             <li>Catalog</li>
             <li>Collections</li>
             <li>About</li>
         </ul>
+
         <div class="hamburger" id="hamburger">
             <span></span><span></span><span></span>
         </div>
     </div>
 </header>
 
-<section id="home" class="carousel">
+<section class="carousel">
     <div class="track" id="track"></div>
+
     <button class="btn prev" id="prev">‹</button>
     <button class="btn next" id="next">›</button>
+
     <div class="dots" id="dots"></div>
 </section>
 
-<section id="catalog" class="catalog">
-    <div class="container">
-        <h2 class="section-title">Essential Pieces</h2>
-        <div class="catalog-grid" id="catalog-container">
-            <p style="grid-column: 1/-1; text-align: center;">Loading elegance...</p>
-        </div>
+<section class="collections large-only">
+    <h2>Collections</h2>
+
+    <div class="grid">
+        <img src="images/large1.webp">
+        <img src="images/larde2.webp">
+        <img src="images/large3.jpg">
     </div>
 </section>
 
-<section id="collections" class="collections-premium">
-    <div class="collection-row">
-        <div class="coll-text">
-            <span>New Season</span>
-            <h2>The Velvet Midnight</h2>
-            <p>Вишукане поєднання глибоких відтінків та ручної роботи. Кожна деталь розповідає історію про вечірню елегантність.</p>
-            <a href="#" class="btn-link">Explore Collection</a>
-        </div>
-        <div class="coll-img">
-            <img src="images/large1.webp" alt="Collection Preview">
-        </div>
+<section class="collections medium-only">
+    <div class="grid">
+        <img src="images/medium1.webp">
+        <img src="images/medium2.jpg">
     </div>
 </section>
-    
-<section id="about" class="about">
-    <div class="about-content">
-        <h2 class="section-title">The Art of Aurum</h2>
-        <p class="about-text">
-            Заснований у 2024 році, AURUM — це філософія мінімалізму, де золото зустрічається з сучасним мистецтвом. 
-            Ми віримо, що справжня розкіш — у деталях, які залишаються значущими для власника.
-        </p>
-        <div class="about-stats">
-            <div class="stat"><span>10+</span><p>Years of Craft</p></div>
-            <div class="stat"><span>100%</span><p>Handmade</p></div>
-            <div class="stat"><span>Ethical</span><p>Sourcing</p></div>
-        </div>
-    </div>
-</section>
-
-<footer>
-    <div class="logo">✦ AURUM ✦</div>
-    <p>&copy; 2026 Aurum Jewelry.</p>
-</footer>
 
 <script src="script.js"></script>
 </body>
