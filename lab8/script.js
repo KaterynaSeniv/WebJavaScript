@@ -22,10 +22,10 @@ const dotsContainer = document.getElementById('dots');
 
 if (track && dotsContainer) {
     const slides = [
-        'images/slide1.jpg',
-        'images/slide2.jpg',
-        'images/slide3.jpg',
-        'images/slide4.jpg'
+        'images/slide1.png',
+        'images/slide2.png',
+        'images/slide3.png',
+        'images/slide4.png'
     ];
 
     let current = 0;
