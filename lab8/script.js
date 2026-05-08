@@ -21,16 +21,16 @@ const track = document.getElementById('track');
 const dotsContainer = document.getElementById('dots');
 
 if (track && dotsContainer) {
-    const slidesArr = [
-        'images/slide1.png',
-        'images/slide2.png',
-        'images/slide3.png',
-        'images/slide4.png'
+    const slides = [
+        'images/slide1.jpg',
+        'images/slide2.jpg',
+        'images/slide3.jpg',
+        'images/slide4.jpg'
     ];
 
     let current = 0;
 
-    slidesArr.forEach((src, i) => {
+    slides.forEach((src, i) => {
         const slide = document.createElement('div');
         slide.className = 'slide';
         slide.innerHTML = `<img src="${src}" alt="Slide ${i + 1}">`;
@@ -43,24 +43,20 @@ if (track && dotsContainer) {
     });
 
     function goTo(i) {
-        const allSlides = document.querySelectorAll('.slide');
-        const allDots = document.querySelectorAll('.dot');
-
-        allSlides.forEach(s => s.classList.remove('active'));
-        allDots.forEach(d => d.classList.remove('active'));
-
-        allSlides[i].classList.add('active');
-        allDots[i].classList.add('active');
-        
+        track.style.transform = `translateX(-${i * 100}%)`;
         current = i;
+        document.querySelectorAll('.dot').forEach((d, index) => {
+            d.classList.toggle('active', index === i);
+        });
     }
 
     const nextBtn = document.getElementById('next');
     const prevBtn = document.getElementById('prev');
 
-    if (nextBtn) nextBtn.onclick = () => goTo((current + 1) % slidesArr.length);
-    if (prevBtn) prevBtn.onclick = () => goTo((current - 1 + slidesArr.length) % slidesArr.length);
+    if (nextBtn) nextBtn.onclick = () => goTo((current + 1) % slides.length);
+    if (prevBtn) prevBtn.onclick = () => goTo((current - 1 + slides.length) % slides.length);
 
+    
     goTo(0);
 }
 
