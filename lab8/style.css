@@ -3,6 +3,11 @@
     --gold: #c9993a;
     --text: #f5ece4;
 }
+:root {
+    --bg: #100a08;
+    --gold: #c9993a;
+    --text: #f5ece4;
+}
 
 * {
     margin: 0;
@@ -61,6 +66,11 @@ header {
     font-weight: 300;
     transition: 0.3s ease;
     text-transform: uppercase;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .menu li:hover {
